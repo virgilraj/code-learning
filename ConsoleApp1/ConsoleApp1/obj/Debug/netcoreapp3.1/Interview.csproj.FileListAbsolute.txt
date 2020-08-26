@@ -11,3 +11,16 @@ C:\Interview\c#\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.dll
 C:\Interview\c#\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.pdb
 C:\Interview\c#\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.genruntimeconfig.cache
 C:\Interview\c#\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.csprojAssemblyReference.cache
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\Interview.exe
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\Interview.deps.json
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\Interview.runtimeconfig.json
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\Interview.runtimeconfig.dev.json
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\Interview.dll
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\bin\Debug\netcoreapp3.1\Interview.pdb
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.csprojAssemblyReference.cache
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.AssemblyInfoInputs.cache
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.AssemblyInfo.cs
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.csproj.CoreCompileInputs.cache
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.dll
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.pdb
+C:\code-learning\code-learning\ConsoleApp1\ConsoleApp1\obj\Debug\netcoreapp3.1\Interview.genruntimeconfig.cache

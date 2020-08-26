@@ -81,7 +81,7 @@ namespace Interview
             Console.Write("Maximum contiguous sum is " + so_far);
         }
 
-        public static void FindMixingElements(int[] arr)
+        public static void FindMissingElements(int[] arr)
         {
             //Normal formula is ::  n*(n+1)/2 -sum(all elements) --- this will give only missing item 
             if (arr.Length > 0)
@@ -104,7 +104,7 @@ namespace Interview
         public static void FindMajorityElement(int[] arr)
         {
             int majority = 0;
-            int count = 0;
+            int count = 1;
             for (int i = 1; i < arr.Length; i++)
             {
                 if (arr[i] == majority)

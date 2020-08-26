@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OEO52zj93i3bG8KmKxK44DwYoP5Cc051Y68tC5EwDR4jbfsBjgKklAe3FMa/1jxYVW2/aN6pgSlmjkjxhWyWZw==",
+  "dgSpecHash": "AXoCD4KO47VBGcxX/hcFbL/CqECi+NJqthTMAlkPuiybchOSymREZjaVaWpP8d769vqvFW3pQrlt99ou1cSmsg==",
   "success": true,
-  "projectFilePath": "C:\\Interview\\c#\\ConsoleApp1\\ConsoleApp1\\Interview.csproj",
+  "projectFilePath": "C:\\code-learning\\code-learning\\ConsoleApp1\\ConsoleApp1\\Interview.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

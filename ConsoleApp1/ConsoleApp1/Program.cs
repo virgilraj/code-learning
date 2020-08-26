@@ -87,7 +87,10 @@ namespace ConsoleApp1
             Console.WriteLine("Missing elements");
 
             int[] aa1 = { 1, 2, 3, 5 ,7,8,10};
-            Pattern.FindMixingElements(aa1);
+            Pattern.FindMissingElements(aa1);
+
+            int[] aa2 = { 1, 2, 3, 1, 1 };
+            Pattern.FindMajorityElement(aa2);
         }
         static int removeDuplicates(int[] arr, int n)
         {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Interview\\c#\\ConsoleApp1\\ConsoleApp1\\Interview.csproj": {}
+    "C:\\code-learning\\code-learning\\ConsoleApp1\\ConsoleApp1\\Interview.csproj": {}
   },
   "projects": {
-    "C:\\Interview\\c#\\ConsoleApp1\\ConsoleApp1\\Interview.csproj": {
+    "C:\\code-learning\\code-learning\\ConsoleApp1\\ConsoleApp1\\Interview.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Interview\\c#\\ConsoleApp1\\ConsoleApp1\\Interview.csproj",
+        "projectUniqueName": "C:\\code-learning\\code-learning\\ConsoleApp1\\ConsoleApp1\\Interview.csproj",
         "projectName": "Interview",
-        "projectPath": "C:\\Interview\\c#\\ConsoleApp1\\ConsoleApp1\\Interview.csproj",
+        "projectPath": "C:\\code-learning\\code-learning\\ConsoleApp1\\ConsoleApp1\\Interview.csproj",
         "packagesPath": "C:\\Users\\VirgilRaj\\.nuget\\packages\\",
-        "outputPath": "C:\\Interview\\c#\\ConsoleApp1\\ConsoleApp1\\obj\\",
+        "outputPath": "C:\\code-learning\\code-learning\\ConsoleApp1\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\VirgilRaj\\AppData\\Roaming\\NuGet\\NuGet.Config",
