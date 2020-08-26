@@ -15,6 +15,8 @@ namespace Interview
         public Node Right { get; set; }
         public Node Left { get; set; }
 
+        public Node Next { get; set; }
+
     }
     class BinaryTree
     {
@@ -159,5 +161,25 @@ namespace Interview
             }
             return null;
         }
+
+        public bool isBinarySearch(Node parent)
+        {
+            return isBSTUtil(parent, int.MinValue, int.MaxValue);
+        }
+
+        bool isBSTUtil(Node parent, int MIN, int MAX)
+        {
+            if(parent == null) { return true; }
+            if (parent.data > MIN && parent.data < MAX
+                && isBSTUtil(parent.Left, MIN, parent.data)
+                && isBSTUtil(parent.Right, parent.data, MAX)){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
     }
 }

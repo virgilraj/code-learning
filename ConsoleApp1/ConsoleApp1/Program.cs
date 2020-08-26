@@ -62,6 +62,12 @@ namespace ConsoleApp1
             var m = bt.GetMinValue(bt.RootNode);
             Console.WriteLine(m);
 
+            Node ln = new Node { data = 20 };
+            Node rn = new Node { data = 30 };
+            Node no = new Node { data = 10, Left = ln, Right = rn };
+
+            // Console.WriteLine("isBST :: {0}", bt.isBST(no, int.MinValue) );
+            Console.WriteLine("isBST :: {0}", bt.isBinarySearch(no));
             int[] arr1 = { 5,6, 8, 9, 10, 12, 15, 20 };
 
             GetTriplets(arr1, 30);
@@ -91,6 +97,21 @@ namespace ConsoleApp1
 
             int[] aa2 = { 1, 2, 3, 1, 1 };
             Pattern.FindMajorityElement(aa2);
+
+            //Search in a Rotated Array 
+            int[] aa3 = { 5,6,7,8,9,10,1, 2, 3,4 };
+            Pattern.SearchRotatedArray(aa3, 10);
+
+            //Linked List
+            LinkedList lst = new LinkedList();
+            lst.InsertFront(10);
+            lst.InsertLast(20);
+            lst.InsertFront(5);
+            lst.InsertLast(25);
+            lst.InsertLast(35);
+            lst.PrintList(lst);
+
+            lst.FindMiddleElement(lst);
         }
         static int removeDuplicates(int[] arr, int n)
         {

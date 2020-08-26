@@ -11,34 +11,34 @@ namespace Interview
             int T = txt.Length;
             int P = pat.Length;
 
-            for(int i=0; i < T-P; i++)
+            for (int i = 0; i < T - P; i++)
             {
                 int j;
-                for(j=0; j < P; j++)
+                for (j = 0; j < P; j++)
                 {
-                    if(txt[i + j] != pat[j])
+                    if (txt[i + j] != pat[j])
                     {
                         break;
                     }
                 }
 
-                if(j == P)
+                if (j == P)
                 {
                     Console.WriteLine("Pattern found at index " + i);
                 }
             }
         }
 
-       public static void Binary_MultipleOf3(string bianry)
+        public static void Binary_MultipleOf3(string bianry)
         {
             int odd_cnt = 0;
             int even_cnt = 0;
 
-            for(int i=1; i <= bianry.Length; i++)
+            for (int i = 1; i <= bianry.Length; i++)
             {
-                if(bianry[i-1] == '1')
+                if (bianry[i - 1] == '1')
                 {
-                    if(i%2 == 0)
+                    if (i % 2 == 0)
                     {
                         even_cnt++;
                     }
@@ -49,7 +49,7 @@ namespace Interview
                 }
             }
 
-            if(even_cnt - odd_cnt == 0)
+            if (even_cnt - odd_cnt == 0)
             {
                 Console.WriteLine("Binary divisible By 3");
             }
@@ -59,20 +59,20 @@ namespace Interview
             }
         }
 
-     public static void maxSubArraySum(int[] arr)
+        public static void maxSubArraySum(int[] arr)
         {
             int so_far = int.MinValue;
             int max_end_here = 0;
-            for(int i=0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 max_end_here = max_end_here + arr[i];
 
-                if(so_far < max_end_here)
+                if (so_far < max_end_here)
                 {
                     so_far = max_end_here;
                 }
 
-                if(max_end_here < 0)
+                if (max_end_here < 0)
                 {
                     max_end_here = 0;
                 }
@@ -89,9 +89,9 @@ namespace Interview
                 int start = arr[0];
                 int cnt = 1;
                 int n = arr.Length;
-                for (int i = start; i <=n ; i++)
+                for (int i = start; i <= n; i++)
                 {
-                    if (i != arr[i-cnt])
+                    if (i != arr[i - cnt])
                     {
                         Console.WriteLine("Missing elements {0} at Index {1}", i, i - cnt);
                         cnt++;
@@ -123,6 +123,46 @@ namespace Interview
             }
 
             Console.WriteLine("N/2 Majority Element {0}", majority);
+        }
+
+        //Search in a Rotated Array 
+        public static void SearchRotatedArray(int[] arr,int key)
+        {
+            int n = arr.Length;
+            int left = 0;
+            int right = n - 1;
+            while(left <= right)
+            {
+                int mid = (left + right) / 2;
+                if(arr[mid] == key)
+                {
+                    Console.WriteLine("Element found at position :: " + mid);
+                    break;
+                }
+                else if(arr[mid] >=arr[left])
+                {
+                    if(key <= arr[mid] && key >= arr[left])
+                    {
+                        right = mid - 1;
+                    }
+                    else
+                    {
+                        left = mid + 1;
+                    }
+                }
+                else
+                {
+                    if (key >= arr[mid] && key <= arr[right])
+                    {
+                        left = mid + 1;
+                    }
+                    else
+                    {
+                        right = mid - 1;
+                    }
+                }
+            }
+            Console.WriteLine("NO Element found at position :: " );
         }
     }
 }
