@@ -112,6 +112,19 @@ namespace ConsoleApp1
             lst.PrintList(lst);
 
             lst.FindMiddleElement(lst);
+
+            Problem_30 p30 = new Problem_30();
+            p30.FindSingeNumber();
+            p30.HappyNumber();
+            p30.Longest_Sum_Subarray();
+            p30.FindSubarraySum();
+            p30.MoveZeroRight();
+            p30.MaxProfit();
+            p30.IsAnagram();
+            p30.StringSorting("kgadeA");
+            p30.GroupingAnagrams();
+
+
         }
         static int removeDuplicates(int[] arr, int n)
         {
