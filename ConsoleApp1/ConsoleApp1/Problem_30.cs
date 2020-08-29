@@ -14,8 +14,8 @@ namespace Interview
         public void FindSingeNumber()
         {
             int result = 0;
-            int[] arr = { 1, 2, 3, 1, 2,3,6,2,2 };
-            for(int i=0; i<arr.Length; i++)
+            int[] arr = { 1, 2, 3, 1, 2, 3, 6, 2, 2 };
+            for (int i = 0; i < arr.Length; i++)
             {
                 result ^= arr[i];
             }
@@ -76,14 +76,14 @@ namespace Interview
             int max_end_here = 0;
             int max_so_far = int.MinValue;
 
-            for(int i=0; i<arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
                 max_end_here = max_end_here + arr[i];
-                if(max_end_here < arr[i])
+                if (max_end_here < arr[i])
                 {
                     max_end_here = arr[i];
                 }
-                if(max_so_far < max_end_here)
+                if (max_so_far < max_end_here)
                 {
                     max_so_far = max_end_here;
                 }
@@ -107,14 +107,14 @@ namespace Interview
             int count = 0;
             //Sum so far
             int curSum = 0;
-            for(int i=0;i<n; i++)
+            for (int i = 0; i < n; i++)
             {
                 curSum += arr[i];
-                if(curSum == sum)
+                if (curSum == sum)
                 {
                     count++;
                 }
-                if(prevSum.ContainsKey(curSum - sum))
+                if (prevSum.ContainsKey(curSum - sum))
                 {
                     count += prevSum[curSum - sum];
                 }
@@ -142,12 +142,12 @@ namespace Interview
             //if non zero element found the swap with left
             //Increment left and right
             //if zero found - increment right
-            int[] arr = { 0, 1, 0, 3, 30, 0, 6,12,0 };
+            int[] arr = { 0, 1, 0, 3, 30, 0, 6, 12, 0 };
             int right = 0, left = 0;
             int n = arr.Length;
-            while(right <n)
+            while (right < n)
             {
-                if(arr[right] == 0)
+                if (arr[right] == 0)
                 {
                     right++;
                 }
@@ -162,7 +162,7 @@ namespace Interview
             }
 
             Console.WriteLine("Move Zero Right array");
-            foreach(var a in arr)
+            foreach (var a in arr)
             {
                 Console.Write("{0}   ", a);
             }
@@ -175,9 +175,9 @@ namespace Interview
             int[] arr = { 7, 1, 5, 3, 6, 4 };
             int prof = 0;
 
-            for(int i=1; i < arr.Length; i++)
+            for (int i = 1; i < arr.Length; i++)
             {
-                if(arr[i] > arr[i - 1])
+                if (arr[i] > arr[i - 1])
                 {
                     prof += (arr[i] - arr[i - 1]);
                 }
@@ -193,7 +193,7 @@ namespace Interview
                 'H', 'i', 'I', 'j', 'J', 'k', 'K','l','L','m','M','n','N','o','O','p','P','q','Q','r','R',
                 's','S','t','T','u','U','v','V','w','W','x','X','y','Y','z','Z'};
             Dictionary<int, int> h = new Dictionary<int, int>();
-            foreach(var a in alph)
+            foreach (var a in alph)
             {
                 h.Add((int)a, 0);
             }
@@ -211,9 +211,9 @@ namespace Interview
                 }
             }
             string nstr = "";
-            foreach(var k in h)
+            foreach (var k in h)
             {
-                for(int i=0; i<k.Value; i++)
+                for (int i = 0; i < k.Value; i++)
                 {
                     nstr += (char)k.Key;
                 }
@@ -252,19 +252,19 @@ namespace Interview
                 if (h.ContainsKey(st2[i]))
                 {
                     int cnt = h[st2[i]];
-                    if(cnt - 1 < 0)
+                    if (cnt - 1 < 0)
                     {
                         Console.WriteLine("NOT Anagrams");
                         return;
                     }
                     h[st2[i]] = cnt - 1;
                 }
-                
+
             }
             int c = 0;
-            foreach(var k in h)
+            foreach (var k in h)
             {
-                if(k.Value != 0)
+                if (k.Value != 0)
                 {
                     Console.WriteLine("NOT Anagrams");
                     return;
@@ -274,7 +274,7 @@ namespace Interview
                     c++;
                 }
             }
-            if(c == h.Count)
+            if (c == h.Count)
             {
                 Console.WriteLine("Anagrams");
             }
@@ -286,7 +286,7 @@ namespace Interview
             string[] arr = { "eat", "tea", "tan", "ate", "nat", "bat" };
             Dictionary<string, ArrayList> h = new Dictionary<string, ArrayList>();
 
-            foreach(var a in arr)
+            foreach (var a in arr)
             {
                 string sortedStr = this.StringSorting(a);
                 if (!h.ContainsKey(sortedStr))
@@ -302,5 +302,660 @@ namespace Interview
                 }
             }
         }
+
+        //Counting element - increamet by 1
+        public void CountingElement()
+        {
+            int[] arr = { 1, 1, 1, 1, 1, 2 };
+            Array.Sort(arr);
+            int right = 1;
+            int left = 0;
+            int n = arr.Length;
+            int count = 0;
+            while (right < n)
+            {
+                if (arr[left] + 1 == arr[right])
+                {
+                    count += (right - left);
+                    left = right;
+                    right++;
+                } else if (arr[left] == arr[right])
+                {
+                    right++;
+                }
+                else
+                {
+                    left = right;
+                    right++;
+                }
+            }
+
+            Console.WriteLine("Counting element - increamet by 1 is ::{0}", count);
+        }
+
+        //Backspace string compare if #
+        public void BackspaceStingCompare()
+        {
+            string str1 = "ab#cd#";
+            string str2 = "ac#d#c";
+            int n1 = str1.Length;
+
+            if (RemoveBackSpace(str1) == RemoveBackSpace(str2))
+            {
+                Console.WriteLine("Strings {0} and {1} are equal", str1, str2);
+            }
+            else
+            {
+                Console.WriteLine("Strings {0} and {1} are NOT equal", str1, str2);
+            }
+
+
+        }
+
+        public string RemoveBackSpace(string str1)
+        {
+            int n1 = str1.Length;
+            for (int i = 0; i < n1; i++)
+            {
+                if (str1[i] == '#')
+                {
+                    int startIndex = i - 1;
+                    int removePos = 2;
+                    if (i == 0)
+                    {
+                        startIndex = 0;
+                        removePos = 1;
+                    }
+                    str1 = str1.Remove(startIndex, removePos);
+                    n1 = str1.Length;
+                    i = i - removePos;
+                }
+            }
+            Console.WriteLine(str1);
+            return str1;
+        }
+
+        public int[] RemoveElementFromArray(int[] arr, int ele)
+        {
+            int[] narr = new int[arr.Length - 1];
+            int j = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] != ele)
+                {
+                    narr[j] = arr[i];
+                    j++;
+                }
+            }
+            return narr;
+        }
+
+        //In order to get
+        //To DO
+
+        public void MinFromSatck()
+        {
+            Stack s = new Stack();
+        }
+
+        //Last stone weight
+        //Need to use the Heap data structure
+        public void LastStoneWeight()
+        {
+            int[] arr = { 7, 1, 5, 3, 6, 4 };
+
+            int n = arr.Length;
+            int startIdx = (n / 2) - 1;
+
+            for (int i = startIdx; i >= 0; i--)
+            {
+                MyHeap.Heapify(arr, n, i);
+            }
+
+            MyHeap.HeapSort(arr);
+            //arr.
+            for (int i = n - 1; i > 0; i--)
+            {
+                var a = this.RemoveElementFromArray(arr, 5);
+                //if(arr[i] == arr[i - 1]) { 
+                //    arr.
+                //}
+                Console.WriteLine("{0}   {1}", arr[i], arr[i - 1]);
+            }
+
+        }
+
+        //Contiguous array 
+        //find the count of all contiguous array will equal number of zeroes and 
+        //If consider 0 to -1 then sum of the sub array always 0 
+        public void SubArrayWithEqualZeroAndOne()
+        {
+            int[] arr = { 1, 1, 0, 0, 1, 1, 0, 1, 1 };
+            int count = 0, sum = 0;
+            Dictionary<int, int> h = new Dictionary<int, int>();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                int temp = arr[i] == 0 ? -1 : arr[i];
+                sum += temp;
+                //If sum 0 then sub array starts from 0th index
+                if (sum == 0)
+                {
+                    if (count < i + 1)
+                    {
+                        count = i + 1;
+                    }
+                }
+                else if (!h.ContainsKey(sum))
+                {
+                    h.Add(sum, i);
+                }
+                else
+                {
+                    if (count < (i - h[sum]))
+                    {
+                        count = (i - h[sum]);
+                    }
+                }
+            }
+
+            Console.WriteLine("Longest sub array {0}", count);
+        }
+
+        //Perform string shifts
+        //We are given an array of queries and 
+        //we are required to shift a string in the same order of query and return the string. 
+        //Rotation of string can be both left rotation and rotation and can be present in any sequence
+        public void StringShif()
+        {
+            string s = "abcdefg";
+            Dictionary<int, int> rotation = new Dictionary<int, int>();
+            rotation.Add(3, 0);
+            rotation.Add(10, 1);
+            rotation.Add(50, 0);
+            rotation.Add(70, 1);
+
+            //0 - Left rotation
+            //1 - Right rotation
+            //Formula (left rotation means -x, right rotation menas x)
+            //Formula from number rotation is ::   (-3+10-50+70)%length of string ::: 27%7 = 6 
+            //if the result is + then Right - then Left
+            int ER = 0;
+            foreach (var rot in rotation)
+            {
+                if (rot.Value == 0)
+                {
+                    ER += (-1) * rot.Key;
+                }
+                else
+                {
+                    ER += rot.Key;
+                }
+            }
+            ER = ER % s.Length;
+            if (ER == 0)
+            {
+                Console.WriteLine("NO ROTATION ");
+            }
+            if (ER > 0)
+            {
+                Console.WriteLine("Shifted string with rotation {0} is :: {1} ", ER, s.Substring(ER, s.Length - ER) + s.Substring(0, ER));
+            }
+            else
+            {
+                Console.WriteLine("Shifted string with rotation {0} is :: {1} ", ER, s.Substring(0, ER) + s.Substring(ER, s.Length - ER));
+            }
+
+        }
+
+        //Product of array except self
+        public void ProductOfArrayExceptSlef()
+        {
+            //Approch -- with divide
+            int[] arr = { 1, 2, 3, 4 };
+            int product = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                if (i == 0)
+                {
+                    product = arr[i];
+                }
+                else
+                {
+                    product *= arr[i];
+                }
+            }
+            //Form product of array
+            for (int i = 0; i < arr.Length; i++)
+            {
+                arr[i] = product / arr[i];
+            }
+
+            //2. Approach
+            int[] arr1 = { 1, 2, 3, 4 };
+            int[] left = new int[arr1.Length];
+            int[] right = new int[arr1.Length];
+            int[] op = new int[arr1.Length];
+            int n = arr1.Length;
+            int prod = 1;
+            for (int i = 0; i < n; i++)
+            {
+                if (i == 0)
+                {
+                    left[i] = arr1[i];
+                }
+                else
+                {
+                    left[i] = arr1[i] * left[i - 1];
+                }
+            }
+
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if (i == n - 1)
+                {
+                    right[i] = arr1[i];
+                }
+                else
+                {
+                    right[i] = arr1[i] * right[i + 1];
+                }
+            }
+            //Two array approach
+            /* for (int i = 0; i < n; i++)
+             {
+                 if(i== 0)
+                 {
+                     arr1[i] = right[1];
+                 }else if(i == n - 1)
+                 {
+                     arr1[i] = left[i-1];
+                 }
+                 else
+                 {
+                     arr1[i] = left[i - 1] * right[i + 1];
+                 }
+             }*/
+
+            //Optimized approach
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if (i == n - 1)
+                {
+                    op[i] = left[i - 1];
+                    prod = arr1[i];
+                }
+                else if (i == 0)
+                {
+                    op[i] = prod;
+                }
+                else
+                {
+                    op[i] = left[i - 1] * prod;
+                    prod = prod * arr1[i];
+                }
+            }
+            foreach (var a in op)
+            {
+                Console.Write("{0}    ", a);
+            }
+        }
+
+        //Valid parenthesis string
+        //very important stack interview coding problem which is to find if a 
+        //given string is valid or invalid in terms of parenthesis. 
+        //This question is slightly twisted because it has stars 
+        //in it as well which can be converted to ( or ) or and empty string
+
+        public bool ValidParenthesis()
+        {
+            string str = ")(*(**))";
+            Stack<int> open = new Stack<int>();
+            Stack<int> star = new Stack<int>();
+            int n = str.Length;
+
+            //Open bracket
+            for(int i=0; i<n; i++)
+            {
+                if(str[i] == '(')
+                {
+                    open.Push(i);
+                }
+                else if (str[i] == '*')
+                {
+                    star.Push(i);
+                }
+                else
+                {
+                    if(open.Count > 0)
+                    {
+                        open.Pop();
+                    }
+                    else if (star.Count > 0)
+                    {
+                        star.Pop();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            //close bracket
+
+            while(open.Count > 0)
+            {
+                if (star.Count == 0) return false;
+                if(star.Peek() > open.Peek())
+                {
+                    open.Pop();
+                    star.Pop();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void NumberOfIsland()
+        {
+            int[,] arr = { { 1,1,1,1},
+                           { 1,1,1,1},
+                           { 1,1,1,1},
+                           { 1,1,1,1}
+                        };
+            // Get all bounds before looping.
+            int rows = arr.GetUpperBound(0);
+            if(rows == 0)
+            {
+                Console.WriteLine("NO Island found");
+                return;
+            }
+
+            int cols = arr.GetUpperBound(1);
+            int number_islands = 0;
+
+            for (int i = 0; i <= rows; i++)
+            {
+                for (int j = 0; j <= cols; j++)
+                {
+                    if(arr[i,j] == 1)
+                    {
+                        Mark_CurrentIland(arr, i, j, rows, cols);
+                        number_islands++;
+                    }
+                }
+            }
+
+            Console.WriteLine("Island found :: {0}", number_islands);
+        }
+
+        public void Mark_CurrentIland(int[,] arr, int i, int j, int rows, int cols)
+        {
+            if (i < 0 || i > rows || j < 0 || j > cols || arr[i, j] != 1) return;
+
+            arr[i, j] = 2;
+
+            //Process 4 direction
+            Mark_CurrentIland(arr, i + 1, j, rows, cols);  //Right
+            Mark_CurrentIland(arr, i - 1, j, rows, cols);  //Left
+            Mark_CurrentIland(arr, i, j + 1, rows, cols);  //Down
+            Mark_CurrentIland(arr, i, j - 1, rows, cols);  //UP
+        }
+
+        //Minimum path sum
+        //TO DO
+        public void MinimumPathSum()
+        {
+            int[,] arr = { { 1,3,5},
+                           { 2,1,2},
+                           { 4,3,1}
+                        };
+        }
+
+        //Leftmost column with atleast a one | Ladder approach | Leetcode
+        //Alternate approach - Binary search from each row
+        //Alternate approach - Binary search from each row - from the last row and column
+        //Best apprach O(R+C) - Lader -> start from bottom right to left-> if found 1 then (mark the index)
+        //then move top -> move left upto out of bound condition 
+
+        public void LeftmostColumnWithAtleastOne() {
+            int[,] arr = { { 0,0,1,1},
+                           { 0,1,1,1},
+                           { 0,0,0,1}
+                        };
+            int result = -1;
+            int x = arr.GetUpperBound(0);
+            int y =  arr.GetUpperBound(1);
+            while(x >=0 && y >= 0)
+            {
+                if(arr[x,y] == 1)
+                {
+                    result = y;
+                    y--;
+                }
+                else
+                {
+                    x--;
+                }
+            }
+
+            Console.WriteLine("Leftmost column with atleast a one position is {0},{1}", result, x);
+        }
+
+        //Bitwise AND of numbers range | Range AND query
+        // find Bitwise AND of numbers in a given range
+        public void BitwiseAnd()
+        {
+            int n = 16, m = 19;
+            int count = 0;
+            while(m != n)
+            {
+                m = m >> 1;
+                n = n >> 1;
+                count++;
+            }
+            m <<= count;
+
+            Console.WriteLine("Bitwise AND of numbers range {0}  ", m);
+        }
+
+        //Jumping problem
+        public void JumpingProblem()
+        {
+            int[] arr = { 1, 1, 2, 5, 2, 1, 0, 0, 1, 3 };
+
+            int reach = 0;
+            for(int i=0; i<arr.Length; i++)
+            {
+                if (reach < i)
+                {
+                    Console.WriteLine("NOT jump to END");
+                    return;
+                }
+                else
+                {
+                    reach = Math.Max(reach, i + arr[i]);
+                }
+
+            }
+
+            Console.WriteLine("Can jump to END");
+        }
+
+        ///Longest common Subsequence (LCS)
+        ///Recursive Method
+        public void LongestcommonSubsequence()
+        {
+            string A = "stone";
+            string B = "longest";
+            int i = LCS_Recursive(A, B, 0, 0);
+            Console.WriteLine("Longest common Subsequence {0}", i);
+            LCS_Dyanmic();
+        }
+
+        public void LCS_Dyanmic()
+        {
+            /// If A[i] == B[j] then
+            /// LCS[i,j] = 1+ LCS[i-1,j-1];
+            /// ELSE LCS[i,j] = max(LCS[i-1], LCS[i,j-1]);
+            /// 
+            string A = "stone";
+            string B = "longest";
+
+            int row = A.Length;
+            int col = B.Length;
+            int[,] LCS = new int[row+1, col+1];
+            //filling LCS
+
+            for(int i=0; i<=row; i++)
+            {
+                for(int j=0; j<=col; j++)
+                {
+                    if(i == 0 || j == 0)
+                    {
+                        LCS[i, j] = 0;
+                    }
+                    else if(A[i-1] == B[j-1])
+                    {
+                        LCS[i, j] = 1 + LCS[i - 1, j - 1];
+                    }
+                    else
+                    {
+                        LCS[i, j] = Math.Max(LCS[i - 1, j], LCS[i, j - 1]);
+                    }
+                }
+            }
+
+            string lcs = "";
+            int l = row;
+            int k = col;
+            while (k > 0 && l > 0)
+            {
+                if (LCS[l, k] != LCS[l, k - 1])
+                {
+                    lcs = B[k - 1].ToString() + lcs;
+                    l--;
+                    k--;
+                }
+                else
+                {
+                    k--;
+                }
+            }
+            
+            Console.WriteLine("Longest common Subsequence :: Dyanmic {0},{1}", LCS[row,col], lcs);
+        }
+
+        public int LCS_Recursive(string A, string B, int i, int j)
+        {
+            if (i >= A.Length || j >= B.Length) return 0;
+            if(A[i] == B[j])
+            {
+                return 1 + LCS_Recursive(A, B, i + 1, j + 1);
+            }
+            else
+            {
+                return Math.Max(LCS_Recursive(A, B, i + 1, j), LCS_Recursive(A, B, i, j + 1));
+            }
+
+        }
+
+        //Count pairs with given sum
+        public void CountPairsGivenSum()
+        {
+            //Sorted array
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8 };
+            int left = 0;
+            int sum = 5;
+            int right = arr.Length-1;
+
+            while (left < right)
+            {
+                if(arr[left] + arr[right] == sum)
+                {
+                    Console.WriteLine("Sum  pair Sorted single array {0} + {1} ={2}", left, right, sum);
+                    left++;
+                    right--;
+                }
+                else if(arr[left] + arr[right] < sum)
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+            }
+
+            //Unsorted array with dictonary
+            int[] arr1 = { 3, 4, 1, 2, 8, 6, 7 };
+            Dictionary<int,int> h = new Dictionary<int,int>();
+            for(int i=0; i<arr1.Length; i++)
+            {
+                if(h.ContainsKey(arr1[i]))
+                {
+                    Console.WriteLine("Sum  pair unsorted single array {0} + {1} ={2}", h[arr1[i]], i, sum);
+                }else
+                {
+                    h.Add(sum - arr1[i], 1);
+                }
+            }
+
+            //Sum pair from 2 sorted array
+            int[] a1 = { 1, 2, 3, 4, 22 };
+            int[] a2 = { 3, 5, 6, 7, 8, 9, 20, 16 };
+            int sum1 = 10;
+            int l = 0;
+            int n = a1.Length;
+            int r = a2.Length - 1;
+            
+            while (l <n && r >=0 )
+            {
+                if (a1[l] + a2[r] == sum1)
+                {
+                    Console.WriteLine("Sum  pair Sorted 2 array {0} + {1} = {2}", l, r, sum1);
+                    l++;
+                    r--;
+                }
+                else if (a1[l] + a2[r] < sum1)
+                {
+                    l++;
+                }
+                else { r--; }
+            }
+
+            //Sum pair from 2 unsorted array
+            int[] a11 = { 4, 6, 5, 7, 2, 1 };
+            int[] a22 = { 8, 5, 7, 11,4 };
+            int sum11 = 10;
+            Dictionary<int, int> h1 = new Dictionary<int, int>();
+            bool isf = a11.Length >= a22.Length;
+            int n1 = isf ? a11.Length : a22.Length;
+            for (int i = 0; i < (isf ? a22.Length : a11.Length); i++)
+            {
+                int temp = sum11 - (isf ? a22[i] : a11[i]);
+                if (!h1.ContainsKey(temp))
+                {
+                    h1.Add(temp, 1);
+                }
+                
+            }
+
+            for (int i = 0; i < n1; i++)
+            {
+                int temp = (isf ? a11[i] : a22[i]);
+                if (h1.ContainsKey(temp))
+                {
+                    Console.WriteLine("Sum  pair unsorted single array {0} + {1} ={2}", h1[temp], i, sum11);
+                }
+                
+            }
+
+        }
     }
+
 }

@@ -123,8 +123,19 @@ namespace ConsoleApp1
             p30.IsAnagram();
             p30.StringSorting("kgadeA");
             p30.GroupingAnagrams();
-
-
+            p30.CountingElement();
+            p30.BackspaceStingCompare();
+            //p30.LastStoneWeight();
+            p30.SubArrayWithEqualZeroAndOne();
+            p30.StringShif();
+            p30.ProductOfArrayExceptSlef();
+            Console.WriteLine("\nValid parenthesis:: {0}", p30.ValidParenthesis());
+            p30.NumberOfIsland();
+            p30.LeftmostColumnWithAtleastOne();
+            p30.BitwiseAnd();
+            p30.JumpingProblem();
+            p30.LongestcommonSubsequence();
+            p30.CountPairsGivenSum();
         }
         static int removeDuplicates(int[] arr, int n)
         {
