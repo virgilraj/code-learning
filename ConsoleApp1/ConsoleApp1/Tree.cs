@@ -142,6 +142,17 @@ namespace Interview
             return minval;
         }
 
+        public int GetMaxValue(Node node)
+        {
+            int maxval = node.data;
+            while (node.Right != null)
+            {
+                node = node.Right;
+                maxval = node.data;
+            }
+            return maxval;
+        }
+
         public Node Find(int key , Node parent)
         {
             if (parent != null)
@@ -180,6 +191,191 @@ namespace Interview
                 return false;
             }
         }
-        
+
+        public void GetKthMinValue(Node parent, ref int k)
+        {
+            if (parent != null)
+            {
+                GetKthMinValue(parent.Left, ref k);
+                k = k - 1;
+                if (k == 0)
+                {
+                    Console.WriteLine("Kth Min Value {0}",  parent.data );
+                    return;
+                }
+                else
+                {
+                    
+                    //Console.Write(parent.data + " ");
+                    GetKthMinValue(parent.Right, ref k);
+                }
+               
+            }
+        }
+
+        public void LevelOrder(Node parent)
+        {
+            if(parent != null)
+            {
+                Console.WriteLine("Print Level Order");
+                Queue<Node> Q = new Queue<Node>();
+                Q.Enqueue(parent);
+                while(Q.Count > 0)
+                {
+                    var node = Q.Dequeue();
+                    Console.Write("{0}   ", node.data);
+                    if(node.Left != null)
+                    {
+                        Q.Enqueue(node.Left);
+                    }
+                    if (node.Right != null)
+                    {
+                        Q.Enqueue(node.Right);
+                    }
+                }
+            }
+            
+        }
+
+        public void Inorder_Iterative(Node node)
+        {
+            Console.WriteLine("Print Inorder Iterative\n");
+            Stack<Node> S = new Stack<Node>();
+            Node cur_node = node;
+            
+            while (true)
+            {
+                if(cur_node != null)
+                {
+                    S.Push(cur_node);
+                    cur_node = cur_node.Left;
+                }
+                else if(S.Count > 0)
+                {
+                    cur_node = S.Pop();
+                    Console.Write("{0}   -> ", cur_node.data);
+                    cur_node = cur_node.Right;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        public void Preorder_Iterative(Node root)
+        {
+            Node cur_node = root;
+            Stack<Node> S = new Stack<Node>();
+            S.Push(cur_node);
+            Console.WriteLine("Print Preorder Iterative\n");
+            while (S.Count > 0)
+            {
+                cur_node = S.Pop();
+                Console.Write("{0}   -> ", cur_node.data);
+                if (cur_node.Right   != null)
+                {
+                    S.Push(cur_node.Right);
+                }
+                if (cur_node.Left != null)
+                {
+                    S.Push(cur_node.Left);
+                }
+            }
+        }
+
+        public void Postorder_Iterative(Node root)
+        {
+            Node cur_node = root;
+            Stack<Node> S1 = new Stack<Node>();
+            Stack<Node> S2 = new Stack<Node>();
+            S1.Push(cur_node);
+            Console.WriteLine("Print Postorder Iterative\n");
+            while (S1.Count > 0)
+            {
+                cur_node = S1.Pop();
+                S2.Push(cur_node);
+                if (cur_node.Right != null)
+                {
+                    S1.Push(cur_node.Right);
+                }
+                if (cur_node.Left != null)
+                {
+                    S1.Push(cur_node.Left);
+                }
+            }
+
+            while(S2.Count > 0)
+            {
+                Console.Write("{0}   -> ", S2.Pop().data);
+            }
+        }
+
+        public void Get_Inorder_Predecessor(Node root)
+        {
+            int val = 20;
+            Node node = this.Find(20, root);
+            if(node.Left != null)
+            {
+                Console.WriteLine("\nInorder_Predecessor {0}", this.GetMaxValue(node.Left));
+            }
+            else
+            {
+                Node predecessor = null;
+                Node ancestor = root;
+                while (ancestor != node)
+                {
+                    if(node.data > ancestor.data)
+                    {
+                        predecessor = ancestor;
+                        ancestor = ancestor.Right;
+                    }
+                    else
+                    {
+                        ancestor = ancestor.Left;
+                    }
+                }
+
+                if(predecessor != null)
+                {
+                    Console.WriteLine("\nInorder_Predecessor {0}", predecessor.data);
+                }
+            }
+
+        }
+
+        public void Get_Inorder_Successor(Node root)
+        {
+            int val = 20;
+            Node node = this.Find(20, root);
+            if (node.Right != null)
+            {
+                Console.WriteLine("\nInorder_Predecessor {0}", this.GetMinValue(node.Right));
+            }
+            else
+            {
+                Node successor = null;
+                Node ancestor = root;
+                while (ancestor != node)
+                {
+                    if (node.data < ancestor.data)
+                    {
+                        successor = ancestor;
+                        ancestor = ancestor.Left;
+                    }
+                    else
+                    {
+                        ancestor = ancestor.Right;
+                    }
+                }
+
+                if (successor != null)
+                {
+                    Console.WriteLine("\nInorder_Predecessor {0}", successor.data);
+                }
+            }
+
+        }
+
     }
 }

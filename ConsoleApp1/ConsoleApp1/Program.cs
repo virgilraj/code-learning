@@ -42,6 +42,8 @@ namespace ConsoleApp1
             bt.Insert(root, 12);
             bt.Insert(root, 5);
 
+
+
             Console.WriteLine("PreOrder");
             bt.PreOrder(bt.RootNode);
             Console.WriteLine("");
@@ -61,6 +63,15 @@ namespace ConsoleApp1
 
             var m = bt.GetMinValue(bt.RootNode);
             Console.WriteLine(m);
+            int pos = 6;
+            bt.GetKthMinValue(bt.RootNode, ref pos);
+            bt.LevelOrder(bt.RootNode);
+            bt.Inorder_Iterative(bt.RootNode);
+            bt.Preorder_Iterative(bt.RootNode);
+            bt.Postorder_Iterative(bt.RootNode);
+            bt.Get_Inorder_Predecessor(bt.RootNode);
+            bt.Get_Inorder_Successor(bt.RootNode);
+
 
             Node ln = new Node { data = 20 };
             Node rn = new Node { data = 30 };
@@ -136,6 +147,11 @@ namespace ConsoleApp1
             p30.JumpingProblem();
             p30.LongestcommonSubsequence();
             p30.CountPairsGivenSum();
+            p30.MaximumPathSum(bt.RootNode);
+            p30.ValidSequence(bt.RootNode);
+            p30.MinFromSatck();
+            p30.MinimumPathSum();
+            p30.HistogramMaxRectangle();
         }
         static int removeDuplicates(int[] arr, int n)
         {

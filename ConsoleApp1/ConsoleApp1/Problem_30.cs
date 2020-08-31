@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Interview
@@ -68,7 +70,11 @@ namespace Interview
             }
         }
 
-        //Kadanes algorithm | Longest sum contiguous subarray
+        //Kadanes algorithm | Longest sum contiguous (it should be adjusent) subarray
+        //Brute-force - find all possible sub aaray O(n2) . then find the maximun O(n2)
+        //Kadanes -- Single traversal -> max_end_here
+        //2.same time find the max_so_far
+        //Means - 
         public void Longest_Sum_Subarray()
         {
             //int[] arr = { -2, -3, 4, -1, -2, 1, 5, -3 };
@@ -169,6 +175,10 @@ namespace Interview
         }
 
         //Best time to Buy and Sell
+        //Condition - Buy it before sell
+        //Cannot buy and sell on the same day
+        //1st day - we can do buy only ... Last day we can sell only
+        //Formula --> if(a[i] > a[i-1]) then buy - > profit = profit + (arr[i] - arr[i - 1])
         public void MaxProfit()
         {
             //int[] arr = { 0, 1, 0, 3, 30, 0, 6, 12, 0 };
@@ -304,6 +314,9 @@ namespace Interview
         }
 
         //Counting element - increamet by 1
+        //1.Brute force -- need to go each 
+        //2.Single window slide - right and left pointer
+        //3.Hashmap
         public void CountingElement()
         {
             int[] arr = { 1, 1, 1, 1, 1, 2 };
@@ -391,15 +404,26 @@ namespace Interview
         }
 
         //In order to get
-        //To DO
+        //Need to take 2 Stack..
+        //One will track the current array
+        //second will track of Minimum
 
         public void MinFromSatck()
         {
-            Stack s = new Stack();
+            MinStack s = new MinStack();
+            s.push(20);
+            s.push(10);
+            Console.WriteLine("Top and Min {0} - {1}", s.top(), s.getMin());
+            s.push(30);
+            s.push(7);
+            s.pop();
+            Console.WriteLine("Top and Min {0} - {1}", s.top(), s.getMin());
+
         }
 
         //Last stone weight
         //Need to use the Heap data structure
+        //TO DO
         public void LastStoneWeight()
         {
             int[] arr = { 7, 1, 5, 3, 6, 4 };
@@ -428,6 +452,7 @@ namespace Interview
         //Contiguous array 
         //find the count of all contiguous array will equal number of zeroes and 
         //If consider 0 to -1 then sum of the sub array always 0 
+        //Use dictionary -> key = sum , value = index
         public void SubArrayWithEqualZeroAndOne()
         {
             int[] arr = { 1, 1, 0, 0, 1, 1, 0, 1, 1 };
@@ -530,7 +555,9 @@ namespace Interview
                 arr[i] = product / arr[i];
             }
 
-            //2. Approach
+            //2. left and right array Approach
+            //Left array will store cumulative multiply + sum from left to right
+            //Right array will store cumulative multiply + sum from right to left
             int[] arr1 = { 1, 2, 3, 4 };
             int[] left = new int[arr1.Length];
             int[] right = new int[arr1.Length];
@@ -576,7 +603,8 @@ namespace Interview
                  }
              }*/
 
-            //Optimized approach
+            //Optimized approach - In place
+            //Traverse from last element
             for (int i = n - 1; i >= 0; i--)
             {
                 if (i == n - 1)
@@ -707,14 +735,56 @@ namespace Interview
         }
 
         //Minimum path sum
-        //TO DO
+        //Recursive method O(n2*m2)
         public void MinimumPathSum()
         {
             int[,] arr = { { 1,3,5},
                            { 2,1,2},
                            { 4,3,1}
                         };
+            int rows = arr.GetUpperBound(0);
+            int cols = arr.GetUpperBound(1);
+            int res = minpathSum(arr, 0, 0, rows, cols);
+            Console.WriteLine("MinimumPathSum Recursive method :: {0}", res);
+
+            ///Optimized approach
+            ///Filled with minimum cost of each cell
+            ///then return the last cell
+            ///
+            for (int x = 0; x <= rows; x++)
+            {
+                for (int y = 0; y <= cols; y++)
+                {
+                    if(x==0 && y == 0)
+                    {
+                        arr[x, y] = arr[x, y];
+                    }else if(x==0 && y > 0)
+                    {
+                        arr[x, y] = arr[x, y] + arr[x, y - 1];
+                    }
+                    else if (x > 0 && y == 0)
+                    {
+                        arr[x, y] = arr[x, y] + arr[x-1, y];
+                    }
+                    else
+                    {
+                        arr[x, y] = arr[x, y] + Math.Min(arr[x, y - 1], arr[x - 1, y]);
+                    }
+                }
+            }
+
+            Console.WriteLine("MinimumPathSum Optimized method :: {0}", arr[rows,cols]);
         }
+
+        public int minpathSum(int[,] arr, int x, int y, int rows, int cols)
+        {
+            if (x < 0 || x > rows || y < 0 || y > cols) return 0;
+            int xmin = minpathSum(arr, x, y + 1, rows, cols);
+            int ymin = minpathSum(arr, x + 1, y, rows, cols);
+            return arr[x, y] + Math.Min(xmin, ymin);
+        }
+
+
 
         //Leftmost column with atleast a one | Ladder approach | Leetcode
         //Alternate approach - Binary search from each row
@@ -955,6 +1025,113 @@ namespace Interview
                 
             }
 
+        }
+
+        //Maximum Path sum from Binary tree
+        //Case 1 :: Current node is in the path of sum
+        //Case 2 :: Current node is the root of max sum path
+        //Case 3 :: Current node is not in path of Max sum
+
+        //Case 1 :: ms = max(max(left,right)+root.val, root.val)
+        //Case 2 :: m21 = max(ms, left + right + root.val)
+        //Case 3 :: result = max(m21, result)
+
+        public void MaximumPathSum(Node root)
+        {
+            int result = int.MinValue;
+            MaxPathSum_Util(root, ref result);
+
+            Console.WriteLine("Maximum Path sum from Binary tree :: {0}", result);
+        }
+
+        public int MaxPathSum_Util(Node root, ref int result)
+        {
+            if (root == null) return 0;
+
+            int left = MaxPathSum_Util(root.Left, ref result);
+            int right = MaxPathSum_Util(root.Right, ref result);
+
+            int ms = Math.Max(Math.Max(left, right) + root.data, root.data);
+            int m21 = Math.Max(ms, left + right + root.data);
+            result = Math.Max(m21, result);
+
+            return ms;
+        }
+
+        //Valid sequence from the root to leaf in a binary tree
+        public void ValidSequence(Node root)
+        {
+            int[] arr = { 10, 8, 5 };
+            int n = arr.Length;
+            int pos = 0;
+
+            Console.WriteLine("Valid sequence from the root to leaf:: {0} ", isValidSequence(root, n, pos, arr));
+        }
+
+        public bool isValidSequence(Node root, int n, int pos, int[] arr)
+        {
+            if (root == null) return false;
+            else if (pos == null) return false;
+            else if (root.data != arr[pos]) return false;
+            else if (root.Left == null && root.Right == null && pos == n-1) return true;
+
+            return isValidSequence(root.Left, n, pos + 1, arr) || isValidSequence(root.Right, n, pos + 1, arr);
+            
+        }
+
+        public void HistogramMaxRectangle()
+        {
+            //int[] arr = { 2, 1, 2, 3, 1 };
+            int[] arr = { 1, 2, 4 };
+            int max = 0;
+            Stack<int> S = new Stack<int>();
+            int area = 0;
+            int i = 0;
+            while(i < arr.Length)
+            {
+                //If stack is empty or stack peak value less than next value then add index to stack
+                if(S.Count == 0 || arr[S.Peek()] <= arr[i])
+                {
+                    S.Push(i);
+                    i++;
+                }
+                else
+                {
+                    int top = S.Pop();
+                    if(S.Count == 0)
+                    {
+                        area = arr[top] * i;
+                    }
+                    else
+                    {
+                        area = arr[top] * (i - S.Peek()-1);
+                    }
+                    if(area > max)
+                    {
+                        max = area;
+                    }
+                }
+                
+            }
+
+            while(S.Count > 0)
+            { 
+                int top = S.Pop();
+                if (S.Count == 0)
+                {
+                    area = arr[top] * i;
+                }
+                else
+                {
+                    area = arr[top] * (i - S.Peek() - 1);
+                }
+                if (area > max)
+                {
+                    max = area;
+                }
+            }
+
+            Console.WriteLine("\nHistogram Max Rectangle {0}", max);
         }
     }
 
