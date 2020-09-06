@@ -77,8 +77,8 @@ namespace Interview
         //Means - 
         public void Longest_Sum_Subarray()
         {
-            //int[] arr = { -2, -3, 4, -1, -2, 1, 5, -3 };
-            int[] arr = { 1, 2, 3, -2, 5 };
+            int[] arr = { -2, -3, 4, -1, -2, 1, 5, -3 };
+            //int[] arr = { 1, 2, 3, -2, 5 };
             int max_end_here = 0;
             int max_so_far = int.MinValue;
 
@@ -102,8 +102,9 @@ namespace Interview
         public void FindSubarraySum()
         {
             // int[] arr = { 10, 2, -2, -20, 10 };
-            int[] arr = { 3, 4, 7, 2, -3, 1, 4, 2 };
-            int sum = 7;
+            //int[] arr = { 3, 4, 7, 2, -3, 1, 4, 2 };
+            int[] arr = { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 };
+            int sum = 0;
             int n = arr.Length;
 
             // HashMap to store number of subarrays 
@@ -144,7 +145,7 @@ namespace Interview
         public void MoveZeroRight()
         {
             //Right and left pointer
-            //Right pointer mve first
+            //Right pointer move first
             //if non zero element found the swap with left
             //Increment left and right
             //if zero found - increment right

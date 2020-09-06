@@ -125,9 +125,10 @@ namespace Interview
         {
             if (parent != null)
             {
+                PostOrder(parent.Left);
                 PostOrder(parent.Right);
                 Console.Write(parent.data + " ");
-                PostOrder(parent.Left);
+                
             }
         }
         
@@ -377,5 +378,21 @@ namespace Interview
 
         }
 
+        //Invert Binary tree
+        //Mirror image of binary tree
+        //Post order traversal 1. Left 2. Right
+        //3. Sawp the left to right
+
+        public void InvertBinary(Node parent)
+        {
+            if (parent != null)
+            {
+                InvertBinary(parent.Left);
+                InvertBinary(parent.Right);
+                Node t = parent.Left;
+                parent.Left = parent.Right;
+                parent.Right = t;
+            }
+        }
     }
 }

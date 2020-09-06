@@ -59,5 +59,7 @@ namespace Interview
             }
             Console.WriteLine("Middle element is :: {0}", slow.data);
         }
+
+        //public void DeleteNode()
     }
 }

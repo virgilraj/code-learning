@@ -72,6 +72,9 @@ namespace ConsoleApp1
             bt.Get_Inorder_Predecessor(bt.RootNode);
             bt.Get_Inorder_Successor(bt.RootNode);
 
+            Console.WriteLine("\nInvert binary");
+            bt.InvertBinary(bt.RootNode);
+            bt.LevelOrder(bt.RootNode);
 
             Node ln = new Node { data = 20 };
             Node rn = new Node { data = 30 };
@@ -125,7 +128,7 @@ namespace ConsoleApp1
             lst.FindMiddleElement(lst);
 
             Problem_30 p30 = new Problem_30();
-            p30.FindSingeNumber();
+            /*p30.FindSingeNumber();
             p30.HappyNumber();
             p30.Longest_Sum_Subarray();
             p30.FindSubarraySum();
@@ -151,7 +154,25 @@ namespace ConsoleApp1
             p30.ValidSequence(bt.RootNode);
             p30.MinFromSatck();
             p30.MinimumPathSum();
-            p30.HistogramMaxRectangle();
+            p30.HistogramMaxRectangle();*/
+
+            ///All Array Problem
+            ///
+            ArrayProblem ar = new ArrayProblem();
+            ar.Find_And_Print_SubArraySum();
+            ar.SortBinaryArray();
+            ar.FindDuplicate();
+            ar.LongestConsecutiveSubArray();
+            ar.SumLongestSubArray();
+            ar.SubArrayWithEqualZeroAndOne();
+            ar.SortArrayOnlyZeroOneTwos();
+            ar.Merge2SortedArray();
+            ar.MergeArray_ReplaceZeroValue();
+            ar.Find_Index_MaxLength_ContinuousOnes();
+            ar.ProductOfTwoIntArray();
+            ar.Suffle();
+            ar.RearrangeArrayHighAndLow();
+            ar.EquilibriumIndex();
         }
         static int removeDuplicates(int[] arr, int n)
         {
