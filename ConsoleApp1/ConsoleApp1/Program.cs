@@ -27,7 +27,9 @@ namespace ConsoleApp1
             Console.WriteLine(b);
 
             BinaryTree bt = new BinaryTree();
+            BinaryTree bt1 = new BinaryTree();
             var root = bt.Insert(null, 10);
+            var root1 = bt1.Insert(null, 10);
             /*root = bt.Insert(root, 20);
             root = bt.Insert(root, 8);
             root = bt.Insert(root, 9);
@@ -42,7 +44,19 @@ namespace ConsoleApp1
             bt.Insert(root, 12);
             bt.Insert(root, 5);
 
+            bt1.Insert(root1, 20);
+            bt1.Insert(root1, 8);
+            bt1.Insert(root1, 9);
+            bt1.Insert(root1, 15);
+            bt1.Insert(root1, 25);
+            //bt1.Insert(root1, 12);
+            bt1.Insert(root1, 7);
 
+            TwoNodes tn = new TwoNodes { First = bt.RootNode, Second = bt1.RootNode };
+
+            Console.WriteLine("Is_BST_Identical_Iterative  ::{0} ", bt.Is_BST_Identical_Iterative(tn));
+            Console.WriteLine("Is_BST_Identical  ::{0} ", bt.isIdentical(bt.RootNode, bt1.RootNode));
+            bt1.Height_Tree_Iterative(bt1.RootNode);
 
             Console.WriteLine("PreOrder");
             bt.PreOrder(bt.RootNode);
@@ -163,7 +177,8 @@ namespace ConsoleApp1
             ar.SortBinaryArray();
             ar.FindDuplicate();
             ar.LongestConsecutiveSubArray();
-            ar.SumLongestSubArray();
+            ar.MaximumSumSubArray();
+            ar.MinimuSumSubArray();
             ar.SubArrayWithEqualZeroAndOne();
             ar.SortArrayOnlyZeroOneTwos();
             ar.Merge2SortedArray();
@@ -173,6 +188,24 @@ namespace ConsoleApp1
             ar.Suffle();
             ar.RearrangeArrayHighAndLow();
             ar.EquilibriumIndex();
+            ar.FindMajorityElement();
+            ar.MoveAllZeroToEnd();
+            ar.ProductOfArrayWithotSlef();
+            ar.BitonicSubArray();
+            ar.FindMaximumDifference();
+            ar.MaximumSumCircularSubArray();
+            ar.FindSumMimumSubArray_Given_Size();
+            ar.FindSumSubArray_Given_Sum();
+            ar.LengthOfSmallestSubarray_SumOfElements_GreaterThanNumber();
+            ar.Find_Smallest_Window_Will_Make_Entire_Array_Sorted();
+            ar.TrappingRainWaterwithin_given_set_bars();
+            ar.Find_Maximum_Sum_Subsequence_With_NO_Adjacent();
+            ar.MinimumNumber_Platform();
+            ar.LengthOf_Continuous_Same_Sum_Two_Binary_Array();
+            ar.Find_Number_Rotations();
+            ar.RodCutting();
+            ar.Find_kth_Smallest_Element();
+            //ar.FindAllCombinations();
         }
         static int removeDuplicates(int[] arr, int n)
         {

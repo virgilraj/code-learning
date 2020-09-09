@@ -31,6 +31,33 @@ namespace Interview
             }
         }
 
+        public static void QuickSelect_Recursive(int[] arr, int start, int end, int k)
+        {
+            if(start == end)
+            {
+                Console.WriteLine("Kth element in array {0}", arr[start]);
+            }
+            else if (start < end)
+            {
+                int p = Partition(arr, start, end);
+
+                if (p  == k)
+                {
+                    Console.WriteLine("Kth element in array {0}", arr[p]);
+                }
+                else if (k < p)
+                {
+                    //Left side
+                    QuickSelect_Recursive(arr, start, p - 1,k);
+                }
+                else if (p  < k)
+                {
+                    //Right
+                    QuickSelect_Recursive(arr, p + 1, end,k);
+                }
+            }
+        }
+
         public static int Partition(int[] arr, int start, int end)
         {
             int pivot = arr[end];  //Take last element as Pivot
@@ -47,6 +74,8 @@ namespace Interview
             Swap(arr, pIndex, end); //Pivot position swap
             return pIndex;
         }
+
+
 
         public static void Swap(int[] arr, int start, int end)
         {

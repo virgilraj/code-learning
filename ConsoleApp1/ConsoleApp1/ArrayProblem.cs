@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.CompilerServices;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -270,9 +271,10 @@ namespace Interview
 
         //Find Sum of longest sub array
         //Kadanes -- Single traversal -> max_end_here --> max so far
-        public void SumLongestSubArray()
+        public void MaximumSumSubArray()
         {
             int[] arr = { -2, -3, 4, -1, -2, 1, 5, -3 };
+            //int[] arr = { -8, -3, -6, -2, -5, -4 };
             int max_here = 0;
             int so_far = int.MinValue;
             int n = arr.Length;
@@ -289,7 +291,74 @@ namespace Interview
                 }
             }
 
-            Console.WriteLine("\n SumLongestSubArray  {0}", so_far);
+            Console.WriteLine("\n MaximumSumSubArray  {0}", so_far);
+        }
+
+        public void MinimuSumSubArray()
+        {
+            int[] arr = { 5, -3, -7, 6, 1, 4 };
+            //int[] arr = { -8, -3, -6, -2, -5, -4 };
+            int min_here = 0;
+            int so_far = int.MaxValue;
+            int n = arr.Length;
+            for (int i = 0; i < n; i++)
+            {
+                min_here = min_here + arr[i];
+                if (min_here > arr[i])
+                {
+                    min_here = arr[i];
+                }
+                if (so_far > min_here)
+                {
+                    so_far = min_here;
+                }
+            }
+
+            Console.WriteLine("\n MinimuSumSubArray  {0}", so_far);
+        }
+
+        //Maximum Sum circular sub array
+        //Approcah 1. Sum of all element + minimum sum of sub array : edge case - if all elements are negative then return maximum value
+        //Approcah 2. Create inverted array and get max sum of sub array + total sum
+        public void MaximumSumCircularSubArray()
+        {
+            //Approach 1 
+            //int[] arr = {5, -3, -2, 6, -1, 4 };
+            int[] arr = { -5, -2, -4, -1 };
+            int sumProd = 0;
+            int maxvalue = int.MinValue;
+            int cnt = 0;
+            int n = arr.Length;
+            int min_here = 0;
+            int so_far = int.MaxValue;
+            for (int i=0; i<n; i++)
+            {
+                sumProd += arr[i];
+                maxvalue = Math.Max(arr[i], maxvalue);
+                if (arr[i] < 0) cnt++;
+
+                //Get Minimum sum of sub array
+                min_here = min_here + arr[i];
+                if(arr[i] < min_here)
+                {
+                    min_here = arr[i];
+                }
+                if(so_far > min_here)
+                {
+                    so_far = min_here;
+                }
+            }
+
+            if(cnt == n)
+            {
+                Console.WriteLine("\n Maximum Sum circular sub array {0}", maxvalue);
+            }
+            else
+            {
+                Console.WriteLine("\n Maximum Sum circular sub array {0}", sumProd + (-1)*so_far);
+            }
+            
+            //Alternate Approach
         }
 
         //Contiguous array 
@@ -619,7 +688,7 @@ namespace Interview
                     Swap(arr, i, i + 1);
                 }
             }
-            Console.WriteLine("\nRearrangeArrayHighAndLow\n");
+            Console.WriteLine("\nRearrangeArrayHighAndLow");
             foreach (var a in arr)
             {
                 Console.Write("{0}  ", a);
@@ -664,7 +733,7 @@ namespace Interview
 
                 if (left == right)
                 {
-                    Console.WriteLine("\n equilibrium index of an array approach 1 :: {0}\n", i);
+                    Console.WriteLine("\n equilibrium index of an array approach 1 :: {0}", i);
                 }
             }
 
@@ -679,22 +748,764 @@ namespace Interview
 
             for (int i = 0; i < n; i++)
             {
-                s += arr[i];
                 int left = sum[i] - arr[i];
                 int right = sum[n - 1] - sum[i];
                 if (left == right)
                 {
-                    Console.WriteLine("\n equilibrium index of an array approach 2 :: {0}\n", i);
+                    Console.WriteLine("\n equilibrium index of an array approach 2 :: {0}", i);
                 }
             }
         }
 
+        //Find majority element (Boyer–Moore Majority Vote Algorithm)
+        //Given an array of integers containing duplicates, return the majority element in an array if present. 
+        //A majority element appears more than n/2 times where n is the size of the array.
+        //Aproach 1 . Naive solution - i loop N/2 time and j loop n times
+        //arr[i]==arr[j] then count++
+
+        //Aproach 2 - O(n) .. 1. consider 1st ele as majority ele, and counter = 1
+        //2. compared 1st ele to next ele..  if it is not equal then counter--. 
+        //if counter==0 then set counter=1 and majority = current val 
+        //3. if equal then counter++
+        //4. if we have majority element counter > 0 and majority variable has majority element
+
+        public void FindMajorityElement()
+        {
+            int[] arr = { 2, 8, 7, 2 };
+            int n = arr.Length;
+            bool hasMaj = false;
+            for(int i=0; i < n / 2; i++)
+            {
+                int count = 1;
+                for(int j=i+1; j < n; j++)
+                {
+                    if(arr[i] == arr[j])
+                    {
+                        count++;
+                    }
+                }
+                if (count >= n / 2)
+                {
+                    Console.WriteLine("\n Found majority element {0}", arr[i]);
+                    hasMaj = true;
+                }
+            }
+
+            
+            if(!hasMaj)
+            {
+                Console.WriteLine("\nNOT Found majority element");
+            }
+
+            //Approach 2
+            int majority = arr[0];
+            int counter = 1;
+            for(int i=1; i<n; i++)
+            {
+                if(majority == arr[i])
+                {
+                    counter++;
+                }
+                else
+                {
+                    counter--;
+                    if (counter == 0) //Reassign important
+                    {
+                        majority = arr[i];
+                        counter = 1;
+                    }
+                    
+                }
+            }
+            Console.WriteLine("\n Found majority element :: Approach 2 :: {0}", majority);
+        }
+
+        //Move all zeros present in an array to the end
+        //Simple approach O(nlogn)
+        //Move all non zero to right then all end elements to zero
+        //Approach 2 
+        //Right and left pointer
+        //Right pointer move first
+        //if non zero element found the swap with left
+        //Increment left and right
+        //if zero found - increment right
+        public void MoveAllZeroToEnd()
+        {
+            int[] arr = { 6, 0, 8, 2, 3, 0, 4, 0, 1 };
+            int k = 0;
+            int n = arr.Length;
+            for(int i=0; i<n; i++)
+            {
+                if(arr[i] != 0)
+                {
+                    arr[k] = arr[i];
+                    k++;
+                }
+            }
+
+            for(int i =k; i<n; i++)
+            {
+                arr[i] = 0;
+            }
+
+            Console.WriteLine("\n MoveAllZeroToEnd approach 1");
+            foreach (var a in arr)
+            {
+                Console.Write("{0}  ", a);
+            }
+
+            int[] arr1 = { 6, 0, 8, 2, 3, 0, 4, 0, 1 };
+            int right = 0, left = 0;
+            n = arr1.Length;
+            while(right < n)
+            {
+                if (arr1[right] == 0) right++;
+                else
+                {
+                    Swap(arr1, left, right);
+                    left++;right++;
+                }
+            }
+
+            Console.WriteLine("\n MoveAllZeroToEnd approach  2 (right and left pointer)");
+            foreach (var a in arr1)
+            {
+                Console.Write("{0}  ", a);
+            }
+        }
+
+        //Product of array except self (multiplication of array without self)
+        public void ProductOfArrayWithotSlef()
+        {
+            int[] arr = { 1, 2, 3, 4 };
+            int product = 0;
+            int n = arr.Length;
+            //divide approach
+            for (int i = 0; i < n; i++)
+            {
+                if (i == 0) { product = arr[i]; }
+                else
+                {
+                    product *= arr[i];
+                }
+            }
+            for (int i = 0; i < n; i++)
+            {
+                arr[i] = product / arr[i];
+            }
+
+            Console.WriteLine("\n ProductOfArrayWithotSlef");
+            foreach (var a in arr)
+            {
+                Console.Write("{0}  ", a);
+            }
+
+            //Without divide approach
+            int[] arr1 = { 1, 2, 3, 4 };
+            int[] left = new int[arr1.Length];
+            int[] op = new int[arr1.Length];
+            n = arr1.Length;
+            int prod = 1;
+            for (int i = 0; i < n; i++)
+            {
+                if (i == 0) left[i] = arr1[i];
+                else
+                {
+                    left[i] = arr1[i] * arr1[i - 1];
+                }
+            }
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if (i == n - 1)
+                {
+                    op[i] = left[i - 1];
+                    prod = arr1[i];
+                }
+                else if (i == 0)
+                {
+                    op[i] = prod;
+                }
+                else
+                {
+                    op[i] = left[i - 1] * prod;
+                    prod = prod * arr1[i];
+                }
+            }
+            Console.WriteLine("\n ProductOfArrayWithotSlef approach 2 with extra space");
+            foreach (var a in op)
+            {
+                Console.Write("{0}    ", a);
+            }
+        }
+
+        //Bitonic Subarray in array 
+        //Bitonic - accesnding order -> peek -> decending order
+        //Approach 1. 1 .I[i] stores the length of the longest increasing sub-array ending at A[i]
+        // 2.D[i] stores the length of the longest decreasing sub-array starting with A[i]
+        // // consider each element as peak and calculate LBS
+
+        public void BitonicSubArray()
+        {
+            int[] arr = { 3, 5, 8, 4, 5, 9, 10, 8, 5, 3, 4 };
+            //int[] arr = { 12, 4, 78, 90, 45, 23 };
+            int n = arr.Length;
+            int[] Inc = new int[n];
+            int[] Dec = new int[n];
+
+            Inc[0] = 1;
+            for (int i = 1; i < n; i++)
+            {
+                Inc[i] = 1;
+                if (arr[i] > arr[i - 1])
+                {
+                    Inc[i] = Inc[i - 1] + 1;
+                }
+            }
+
+            Dec[n - 1] = 1;
+            for (int i = n - 2; i >= 0; i--)
+            {
+                Dec[i] = 1;
+                if (arr[i] > arr[i + 1])
+                {
+                    Dec[i] = Dec[i + 1] + 1;
+                }
+            }
+
+            // consider each element as peak and calculate LBS
+            int lbs_len = 1;
+            int beg = 0, end = 0;
+            for (int i = 0; i < n; i++)
+            { 
+                if(lbs_len < Inc[i] + Dec[i] - 1)
+                {
+                    lbs_len = Inc[i] + Dec[i] - 1;
+                    beg = i - Inc[i] + 1;
+                    end = i + Dec[i] - 1;
+                }
+            }
+            Console.WriteLine("\nBitonicSubArray Length {0}", lbs_len);
+            for(int i=beg; i<end; i++)
+            {
+                Console.Write("{0}  ", arr[i]);
+            }
+
+            //Aproch 2 O(n) and O(1) 
+            int max_len = 0, end_index = 0;
+            int k = 0;
+            while(k < n - 2)
+            {
+                int len = 1;
+
+                // run till sequence is increasing
+                while(k+1 < n && arr[k] < arr[k + 1])
+                {
+                    k++; len++;
+                }
+
+                // run till sequence is decreasing
+                while (k + 1 < n && arr[k] > arr[k + 1])
+                {
+                    k++; len++;
+                }
+
+                // update Longest Bitonic Subarray if required
+                if(len > max_len)
+                {
+                    max_len = len;
+                    end_index = k;
+                }
+            }
+
+            Console.WriteLine("\nBitonicSubArray Approch O(n) Length {0}", lbs_len);
+            for (int i = end_index - max_len + 1; i < end_index; i++)
+            {
+                Console.Write("{0}  ", arr[i]);
+            }
+        }
+
+        //Find maximum difference between two elements in an array by satisfying given constraints
+        //(larger element appears after smaller)
+        public void FindMaximumDifference()
+        {
+            int[] arr = { 2, 7, 9, 5, 1, 3, 5 };
+            int max_so_far = int.MinValue;
+            int diff = 0;
+            int n = arr.Length;
+            // traverse the array from right and keep track the maximum element
+            for(int i = n-1; i>=0; i--)
+            {
+                if(arr[i] > max_so_far)
+                {
+                    max_so_far = arr[i];
+                }
+                else
+                {
+                    diff = Math.Max(diff, max_so_far - arr[i]);
+                }
+            }
+
+            Console.WriteLine("\nFindMaximumDifference  {0}", diff);
+        }
+
+        //Find all distinct combinations of given length
+        //TO DO
+        public void FindAllCombinations()
+        {
+            int[] arr = { 1, 2, 3,4,5 };
+            int k = 3;
+            int n = arr.Length;
+            int count = 0;
+            Console.WriteLine("\nFind all distinct combinations of given length");
+            for(int i=0; i< n; i++)
+            {
+                string comp = arr[i].ToString();
+                int right = i + 1;
+                int left = i+1;
+                int cnt = 0;
+                while(right < n)
+                {
+                    comp = comp + "  " + arr[left].ToString();
+                    cnt++;
+                    left++;
+                    count++;
+                    if (cnt == k - 1)
+                    {
+                        Console.WriteLine(comp);
+                        cnt = 0;
+                        left = right + 1;
+                        comp = arr[i].ToString();
+                        right++;
+                    }
+                }
+
+            }
+            Console.WriteLine(count);
+        }
+
+        // Find minimum sum sub-array of given size k
+        public void FindSumMimumSubArray_Given_Size()
+        {
+            int[] arr = { 10, 4, 2, 5, 6, 3, 8, 1 };
+            int k = 3;
+
+            // stores sum of element in current window
+            int window_sum = 0;
+
+            // stores sum of minimum sum sub-array found so far
+            int min_window = int.MaxValue;
+
+            // stores ending index of minimum sum sub-array found so far
+            int last = 0;
+            int n = arr.Length;
+            for (int i = 0; i < n; i++) {
+                //Current sum
+                window_sum += arr[i];
+
+                //If window size greater than size k
+                if(i+1 > k)
+                {
+                    //update minimum sum window
+                    if(window_sum < min_window)
+                    {
+                        min_window = window_sum;
+                        last = i;
+                    }
+
+                    // remove leftmost element from the window
+                    window_sum -= arr[i + 1 - k]; 
+                }
+            }
+
+            Console.WriteLine("Find minimum sum sub-array of given size k index ::{0}  -- {1} and value {2} --> {3}", last - k + 1, last, arr[last-k+1], arr[last]);
+        }
+
+        // Function to check if sub-array with given sum exists in
+        // the array or not
+        public void FindSumSubArray_Given_Sum()
+        {
+            //This approach work for positive integer
+            
+            int[] arr = { 2, 6, 0, 9, 7, 3, 1, 4, 1, 10 };
+            int sum = 15;
+            
+            int n = arr.Length;
+            int window_sum = 0;
+            int low = 0, high = 0;
+            for (low = 0; low < n; low++)
+            {
+                // if current window's sum is less than the given sum,
+                // then add elements to current window from right
+                while (window_sum < sum && high < n)
+                {
+                    window_sum += arr[high];
+                    high++;
+                }
+
+                // if current window's sum is equal to the given sum
+                if (window_sum == sum)
+                {
+                    Console.WriteLine("\nSubarray Found at :: {0} --> {1}", low, high - 1);
+                    //return;
+                }
+
+                // At this point the current window's sum is more than the given sum
+                // remove current element (leftmost element) from the window
+
+                window_sum -= arr[low];
+            }
+
+
+            //Disctionary approach
+            int[] ar1 = { -3, 5, 2, -1, -4, 10 };
+            sum = -4;
+
+            Dictionary<int, int> h = new Dictionary<int, int>();
+            h.Add(0, -1);
+            // maintains sum of elements so far
+            int sum_so_far = 0;
+            for (int i=0; i < ar1.Length; i++)
+            {
+                // update sum_so_far
+                sum_so_far += ar1[i];
+                if (h.ContainsKey(sum_so_far - sum))
+                {
+                    Console.WriteLine("\nDict Subarray Found at :: {0} --> {1}", h[sum_so_far - sum]+1, i);
+                }
+                else
+                {
+                    if (!h.ContainsKey(sum_so_far))
+                    {
+                        h.Add(sum_so_far, i);
+                    }
+                    else
+                    {
+                        h[sum_so_far] = i;
+                    }
+                }
+            }
+        }
+
+        // Function to find the length of smallest subarray whose sum
+        // of elements is greater than the given number
+        public void LengthOfSmallestSubarray_SumOfElements_GreaterThanNumber()
+        {
+            int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8 };
+            int k = 21;
+            int n = arr.Length;
+            int window_sum = 0;
+            int len = int.MaxValue;
+            int left = 0;
+            // maintain a sliding window [left..right]
+            for (int right = 0; right < n; right++)
+            {
+                // include current element in the window
+                window_sum += arr[right];
+                
+                while(window_sum > k && left <= right)
+                {
+                    len = Math.Min(len, right - left + 1);
+
+                    // remove elements from the window's left side till window
+                    window_sum -= arr[left];
+                    left++;
+                }
+            }
+
+            if(len != int.MaxValue)
+            {
+                Console.WriteLine("\nSmallest sub-array length and Sum is :: {0}   {1}", len, window_sum);
+            }
+            else
+            {
+                Console.WriteLine("\n NO Smallest sub-array found ");
+            }
+        }
+
+        //Find smallest window in array sorting which will make entire array sorted
+        //1. Traverse array from left to right keeping track of maximum so far and note the last encountered index  which is less than the maximum so far.
+        //2. Traverse array from right to left keeping track of minimum so far and note the last encountered index  which is more than the minimum so far.
+        //3. 3. Finally we sort the array from index
+
+        public void Find_Smallest_Window_Will_Make_Entire_Array_Sorted()
+        {
+            int[] arr = { 1, 3, 2, 7, 5, 6, 4, 8 };
+            int n = arr.Length;
+
+            int leftIndex = -1, rightIndex = -1;
+            // traverse from left to right and keep track of maximum so far
+            int max_so_far = int.MinValue;
+            for(int i=0; i<n; i++)
+            {
+                if(max_so_far < arr[i])
+                    max_so_far = arr[i];
+
+                // find the last position that is less than the maximum so far
+                if (arr[i] < max_so_far)
+                    rightIndex = i;
+            }
+
+            // traverse from right to left and keep track of minimum so far
+            int min_so_far = int.MaxValue;
+            for (int i = n - 1; i >= 0; i--)
+            {
+                if(min_so_far > arr[i])
+                {
+                    min_so_far = arr[i];
+                }
+
+                // find the last position that is more than the minimum so far
+                if(min_so_far < arr[i])
+                {
+                    leftIndex = i;
+                }
+            }
+
+            Console.WriteLine("Sort array from index  {0}  to  {1}", leftIndex, rightIndex);
+        }
+
+        //Trapping Rain Water within given set of bars
+        public void TrappingRainWaterwithin_given_set_bars()
+        {
+            int[] arr = { 1, 0, 2, 0, 3, 1 };
+            //int[] arr = { 7, 0, 4, 2, 5, 0, 6, 4, 0, 5 };
+            int n = arr.Length;
+            int sum = 0;
+            // left[i] stores the maximum height of a bar to the left
+            // of current bar
+            int[] left = new int[n];
+            left[0] = int.MinValue;
+            for (int i = 1; i < n - 1; i++)
+            {
+                left[i] = Math.Max(left[i - 1], arr[i - 1]);
+            }
+
+            // right stores the maximum height of a bar to the right
+            // of current bar
+            int right = int.MinValue;
+            for (int i = n-2; i>=1; i--)
+            {
+                right = Math.Max(right, arr[i + 1]);
+
+                // check if it is possible to store water in current bar
+                if (Math.Min(left[i], right) > arr[i])
+                {
+                    int min = Math.Min(left[i], right);
+                    sum += min - arr[i];
+                }
+            }
+
+            Console.WriteLine("\n Trapping Rain Water within given set of bars  {0}", sum);
+        }
+
+        //Find maximum sum of subsequence with no adjacent elements
+        //Formula 
+        /**
+        * Recursive slow solution.
+        public int maxSum(int arr[], int index)
+        {
+            if (index == 0)
+            {
+                return arr[0];
+            }
+            else if (index == 1)
+            {
+                return Math.max(arr[0], arr[1]);
+            }
+            return Math.max(this.maxSum(arr, index - 2) + arr[index], this.maxSum(arr, index - 1));
+        }*/
+        public void Find_Maximum_Sum_Subsequence_With_NO_Adjacent()
+        {
+            int[] arr = { 1, 2, 9, 4, 5, 0, 4, 11, 6 };
+            int n = arr.Length;
+
+            //Simple fast DP: formula 
+            //1. Find inclusive and exclusive sum
+            //2. inclusive Max(exclusive+current, inclusive)
+            //3. exclusive = old_inclusive
+            //4. Sum = inclusive
+
+            int exclusive = 0;
+            int inclusive = arr[0];
+            for(int i=0; i< n; i++)
+            {
+                int temp = inclusive;
+                inclusive = Math.Max(exclusive + arr[i], inclusive);
+                exclusive = temp;
+            }
+
+            Console.WriteLine("maximum sum of subsequence with no adjacent elements :: {0}", inclusive);
+        }
+
+        //Find minimum number of platforms needed in the station so to avoid any delay in arrival of any train
+        public void MinimumNumber_Platform()
+        {
+            double[] arrival = { 2.00, 2.10, 3.00, 3.20, 3.50, 5.00 };
+            double[] departure = { 2.30, 3.40, 3.20, 4.30, 4.00, 5.20 };
+
+            Array.Sort(arrival);
+            Array.Sort(departure);
+            // maintains the count of trains
+            int count = 0;
+
+            // stores minimum platforms needed
+            int platforms = 0;
+
+            // take two indices for arrival and departure time
+            int i = 0, j = 0;
+
+            // run till train is scheduled to arrive
+            while (i < arrival.Length)
+            {
+                // if train is scheduled to arrive next
+                if (arrival[i] < departure[j])
+                {
+                    // increase the count of trains and update minimum
+                    // platforms if required
+                    count++;
+                    platforms = Math.Max(platforms, count);
+
+                    // move the pointer to next arrival
+                    i++;
+                }
+
+                // if train is scheduled to depart next i.e.
+                // (departure[j] < arrival[i]), decrease the count of trains
+                // and move pointer j to next departure
+
+                // If two trains are arriving and departing at the same time, i.e.
+                // (arrival[i] == departure[j]) depart the train first
+                else
+                { count--; j++; }
+            }
+
+
+            Console.WriteLine("\nMinimum platforms needed is  {0}", platforms);
+        }
+
+        //Length of longest continuous sequence with same sum in given binary arrays
+        // Given two binary arrays X and Y, find the length of longest
+        // continuous sequence that starts and ends at same index in both
+        // arrays and have same sum
+
+        public void LengthOf_Continuous_Same_Sum_Two_Binary_Array()
+        {
+            int[] X = { 0, 0, 1, 1, 1, 1 };
+            int[] Y = { 0, 1, 1, 0, 1, 0 };
+            int n = X.Length;
+            int sumX = 0, sumY = 0,  len = 0;
+
+            Dictionary<int, int> h = new Dictionary<int, int>();
+            
+            //Important inizialize
+            h.Add(0, -1);
+            // traverse both lists simultaneously
+            for (int i = 0; i < n; i++)
+            {
+                sumX += X[i];
+                sumY += Y[i];
+                // calculate difference between sum of elements in two lists
+                int diff = Math.Abs( sumX - sumY);
+
+                // if difference is seen for the first time, then store the
+                // difference and current index in a dictionary
+                if (!h.ContainsKey(diff))
+                {
+                    h.Add(diff, i);
+                }
+                else
+                {
+                    
+                    len = Math.Max(len, i - h[diff]);
+                }
+            }
+
+            Console.WriteLine("\nLength of longest sequence with same sum in given binary arrays {0}", len);
+        }
+
+        //Find number of rotations in a circularly sorted array
+        //Number of rotations = Number of elements before minimum element of the array 
+        public void Find_Number_Rotations()
+        {
+            int[] arr = { 8, 9, 10, 2, 5, 6 };
+            int n = arr.Length;
+
+            int low = 0, high = n-1;
+
+            while(low < high )
+            {
+                if(arr[low] <= arr[high])
+                {
+                    Console.WriteLine("\nnumber of rotations {0}", low);
+                    return;
+                }
+                else
+                {
+                    int mid = (low + high) / 2;
+                    // find next and previous element of the mid element
+                    // (in circular manner)
+                    int next = (mid + 1) % n;
+                    int prev = (mid - 1 + n) % n;
+
+                    // if mid element is less than both its next and previous
+                    // neighbor, then it is the minimum element of the array
+                    if(arr[mid] < arr[next] && arr[mid] < arr[prev])
+                    {
+                        Console.WriteLine("\nnumber of rotations {0}", mid);
+                        return;
+                    }
+                    else if(arr[mid] >= arr[low])
+                    {
+                        low = mid + 1;
+                    }
+                    else if(arr[mid] <= arr[high])
+                    {
+                        high = mid - 1;
+                    }
+
+                }
+            }
+        }
+        //Rod cuting
+        // Function to find best way to cut a rod of length n
+        // where rod of length i has a cost price[i-1]
+        public void RodCutting()
+        {
+            int[] length = { 1, 2, 3, 4, 5,  6,  7,  8 }; //Dummy
+            int[] price = { 1, 5, 8, 9, 10, 17, 17, 20 };
+            // rod length
+            int n = 4;
+            
+            // T[i] stores maximum profit achieved from rod of length i
+            int[] T = new int[n+1];
+
+            // consider rod of length i
+            for (int i = 1; i <= n; i++)
+            {
+                // divide the rod of length i into two rods of length j
+                // and i-j each and take maximum
+                for (int j = 1; j <= i; j++)
+                    T[i] = Math.Max(T[i], price[j - 1] + T[i - j]);
+            }
+
+
+            Console.WriteLine("\n Maximun Profit {0}", T[n]);
+        }
+        //Find kth smallest element
+        public void Find_kth_Smallest_Element()
+        {
+            int[] arr = { 10,3, 4, 7, 2, 3, 5 };
+            int k = 5;
+            QuickSort.QuickSelect_Recursive(arr,0,arr.Length-1, k);
+            
+        }
         private void Swap(int[] arr, int li, int ri)
         {
             int temp = arr[li];
             arr[li] = arr[ri];
             arr[ri] = temp;
         }
+
     }
 
 }

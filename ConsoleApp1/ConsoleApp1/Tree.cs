@@ -394,5 +394,123 @@ namespace Interview
                 parent.Right = t;
             }
         }
+
+        public bool Is_BST_Identical_Iterative(TwoNodes twoNodes)
+        {
+            // if both trees are empty, return true
+            if (twoNodes.First == null && twoNodes.Second == null)
+                return true;
+
+            // if first tree is empty (& second tree is non-empty), return false
+            if (twoNodes.First == null)
+                return false;
+            if (twoNodes.Second == null)
+                return false;
+
+            // create a stack to hold Node* pairs
+            Stack<TwoNodes> S = new Stack<TwoNodes>();
+            S.Push(twoNodes);
+
+            while(S.Count >0)
+            {
+                // pop top pair from the stack and process it
+                Node x = S.Peek().First;
+                Node y = S.Peek().Second;
+                S.Pop();
+
+                // if value of their root node don't match, return false
+                if (x.data != y.data)
+                    return false;
+
+                // if left subtree of both x and y exists, push their addresses
+                // to stack else return false if only one left child exists
+                if (x.Left !=null && y.Left !=null)
+                    S.Push(new TwoNodes { First = x.Left, Second = y.Left });
+                else if ((x.Left == null && y.Left != null) || (x.Left != null && y.Left == null))
+                    return false;
+
+                // if right subtree of both x and y exists, push their addresses
+                // to stack else return false if only one right child exists
+
+                if (x.Right != null && y.Right != null)
+                    S.Push(new TwoNodes { First = x.Right, Second = y.Right });
+                else if ((x.Right == null && y.Right != null) || (x.Right != null && y.Right == null))
+                    return false;
+
+            }
+
+            return true;
+        }
+
+        // Recursive function to check if two given binary trees are identical or not
+        public bool isIdentical(Node x, Node y)
+        {
+            // if both trees are empty, return true
+            if (x == null && y == null)
+                return true;
+
+            // if both trees are non-empty and value of their root node matches,
+            // recur for their left and right sub-tree
+            return (x !=null && y !=null) && (x.data == y.data) && isIdentical(x.Left, y.Left) && isIdentical(x.Right, y.Right);
+        }
+
+        // Recursive function to calculate height of given binary tree
+        /*int height(Node* root)
+        {
+            // Base case: empty tree has height 0
+            if (root == nullptr)
+                return 0;
+
+            // recur for left and right subtree and consider maximum depth
+            return 1 + max(height(root->left), height(root->right));
+        }*/
+
+        // Iterative function to calculate height of given binary tree
+        // by doing level order traversal of the tree
+        public void Height_Tree_Iterative(Node root)
+        {
+            if(root == null)
+            {
+                Console.WriteLine("Empty tree height:: 0");
+            }
+            Queue<Node> Q = new Queue<Node>();
+            Q.Enqueue(root);
+            int height = 0;
+
+            while(Q.Count > 0)
+            {
+                // calculate number of nodes in current level
+                int size = Q.Count;
+                // process each node of current level and enqueue their
+                // non-empty left and right child to queue
+
+                while(size > 0)
+                {
+                    var front = Q.Peek();
+                    Q.Dequeue();
+
+                    if(front.Left != null)
+                    {
+                        Q.Enqueue(front.Left);
+                    }
+                    if (front.Right != null)
+                    {
+                        Q.Enqueue(front.Right);
+                    }
+                    size--;
+                }
+
+                // increment height by 1 for each level
+                height++;
+            }
+
+            Console.WriteLine("Height of the Tree is {0}", height);
+        }
+    }
+
+    public class TwoNodes
+    {
+        public Node First { get; set; }
+        public Node Second { get; set; }
     }
 }
