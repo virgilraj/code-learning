@@ -506,6 +506,62 @@ namespace Interview
 
             Console.WriteLine("Height of the Tree is {0}", height);
         }
+
+        //Create binary tree from inorder and preorder array
+        //preorder :: root ->all left --> all right
+        //In order :: all left --> root --> all right
+
+        
+        Dictionary<int, int> hm = new Dictionary<int, int>();
+        int preIndex = 0;
+        public void CreateBinaryTreeFromInAndPreOrder()
+        {
+            int[] preorder = { 3, 9, 20, 15, 7 };
+            int[] inorder = { 9, 3, 15, 20, 7 };
+
+            int n = preorder.Length;
+            
+            for(int i=0; i< n; i++)
+            {
+                hm.Add(inorder[i], i);
+            }
+
+            var btree = build(preorder, inorder, 0, n - 1);
+            BinaryTree t = new BinaryTree();
+            t.LevelOrder(btree);
+
+            //Set the root 
+            Node root = new Node { data = preorder[0] };
+            
+
+            int cnt = 0;
+            while (cnt < n)
+            {
+                int index = hm[root.data];
+            }
+
+            //BinaryTree tr = new BinaryTree();
+            //var root = tr.Insert(null, preorder[0]);
+        }
+
+        Node build(int[] preorder, int[] inorder, int start, int end)
+        {
+            if (start > end) return null;
+
+            //Add node
+            Node root = new Node();
+            root.data = preorder[preIndex++];
+
+            if (start == end) return root;
+
+            int index = hm[root.data];
+
+            root.Left = build(preorder, inorder, start, index - 1);
+            root.Right = build(preorder, inorder, index+1, end);
+
+            return root;
+        }
+
     }
 
     public class TwoNodes

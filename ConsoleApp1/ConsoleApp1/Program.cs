@@ -1,5 +1,6 @@
 ﻿using Interview;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 
 namespace ConsoleApp1
@@ -66,6 +67,8 @@ namespace ConsoleApp1
             Console.WriteLine("");
             Console.WriteLine("PostOrder");
             bt.PostOrder(bt.RootNode);
+
+            bt.CreateBinaryTreeFromInAndPreOrder();
 
             Console.WriteLine("");
             Console.WriteLine("Find");
@@ -169,6 +172,7 @@ namespace ConsoleApp1
             p30.MinFromSatck();
             p30.MinimumPathSum();
             p30.HistogramMaxRectangle();*/
+            //p30.Print_Combination_R_Elements_Array();
 
             ///All Array Problem
             ///
@@ -205,7 +209,47 @@ namespace ConsoleApp1
             ar.Find_Number_Rotations();
             ar.RodCutting();
             ar.Find_kth_Smallest_Element();
-            //ar.FindAllCombinations();
+            ar.FindAllCombinations();
+
+            //Trie data structure
+            Trie tr = new Trie();
+            string[] words = { "abc", "abgl", "cdf", "abcd", "lmn" };
+            //string[] words = { "abc"};
+            foreach (string st in words)
+            {
+                tr.Insert(st);
+            }
+
+            Console.WriteLine("\nIs string present {0} ", tr.Search("cdf"));
+            tr.AutoComplete("ab");
+
+            // List of graph edges as per above diagram
+            List<Edge> edges = new List<Edge>{
+                // Notice that node 0 is unconnected node
+                new Edge(1, 2), new Edge(1, 7), new Edge(1, 8),
+                    new Edge(2, 3), new Edge(2, 6), new Edge(3, 4),
+                    new Edge(3, 5), new Edge(8, 9), new Edge(8, 12),
+                    new Edge(9, 10), new Edge(9, 11)
+            };
+
+            // Set number of vertices in the graph (0-12)
+            int N = 13;
+
+            // create a graph from edges
+            Graph graph = new Graph(edges, N);
+
+            // stores vertex is discovered or not
+            bool[] discovered = new bool[N];
+
+            // Do DFS traversal from all undiscovered nodes to
+            // cover all unconnected components of graph
+            for (int i = 0; i < N; i++)
+            {
+                if (!discovered[i])
+                {
+                    graph.DFS(graph, i, discovered);
+                }
+            }
         }
         static int removeDuplicates(int[] arr, int n)
         {

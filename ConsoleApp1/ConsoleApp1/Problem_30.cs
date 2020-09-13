@@ -1134,6 +1134,50 @@ namespace Interview
 
             Console.WriteLine("\nHistogram Max Rectangle {0}", max);
         }
+
+        //Print Combination of r elements in an array of size n
+        public void Print_Combination_R_Elements_Array()
+        {
+            int[] arr = { 1, 2, 3, 4, 5 };
+            int r = 3;
+            int[] data = new int[r];
+
+            Console.WriteLine("Print Combination of r elements in an array of size n");
+            combinationUtil(arr, data, 0, arr.Length - 1, 0, r);
+        }
+
+        /* arr[] ---> Input Array 
+        data[] ---> Temporary array to store current combination 
+        start & end ---> Staring and Ending indexes in arr[] 
+        index ---> Current index in data[] 
+        r ---> Size of a combination to be printed */
+
+        public void combinationUtil(int[] arr, int[] data,
+                    int start, int end,
+                    int index, int r)
+        {
+            // Current combination is ready to be printed, print it 
+            if (index == r)
+            {
+                for (int j = 0; j < r; j++)
+                    Console.Write("data[j]");
+                Console.WriteLine();
+                return;
+            }
+
+            // replace index with all possible elements. 
+            // The condition "end-i+1 >= r-index" 
+            // makes sure that including one element 
+            // at index will make a combination with 
+            // remaining elements at remaining positions
+
+            for (int i = start; i <= end &&end - i + 1 >= r - index; i++)
+            {
+                data[index] = arr[i];
+                combinationUtil(arr, data, i + 1,
+                                end, index + 1, r);
+            }
+        }
     }
 
 }
