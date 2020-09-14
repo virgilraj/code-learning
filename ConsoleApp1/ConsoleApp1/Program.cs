@@ -82,12 +82,12 @@ namespace ConsoleApp1
             Console.WriteLine(m);
             int pos = 6;
             bt.GetKthMinValue(bt.RootNode, ref pos);
-            bt.LevelOrder(bt.RootNode);
-            bt.Inorder_Iterative(bt.RootNode);
-            bt.Preorder_Iterative(bt.RootNode);
-            bt.Postorder_Iterative(bt.RootNode);
-            bt.Get_Inorder_Predecessor(bt.RootNode);
-            bt.Get_Inorder_Successor(bt.RootNode);
+            //bt.LevelOrder(bt.RootNode);
+            //bt.Inorder_Iterative(bt.RootNode);
+            //bt.Preorder_Iterative(bt.RootNode);
+            //bt.Postorder_Iterative(bt.RootNode);
+            //bt.Get_Inorder_Predecessor(bt.RootNode);
+            //bt.Get_Inorder_Successor(bt.RootNode);
 
             Console.WriteLine("\nInvert binary");
             bt.InvertBinary(bt.RootNode);
@@ -99,6 +99,10 @@ namespace ConsoleApp1
 
             // Console.WriteLine("isBST :: {0}", bt.isBST(no, int.MinValue) );
             Console.WriteLine("isBST :: {0}", bt.isBinarySearch(no));
+
+            AVLTree at = new AVLTree();
+            at.Avl_execute();
+
             int[] arr1 = { 5,6, 8, 9, 10, 12, 15, 20 };
 
             GetTriplets(arr1, 30);
@@ -250,6 +254,12 @@ namespace ConsoleApp1
                     graph.DFS(graph, i, discovered);
                 }
             }
+
+            //Matrix
+            Matrix mt = new Matrix();
+            mt.Print_SpiralOrder();
+            mt.Rotation_90();
+            mt.FloodFill();
         }
         static int removeDuplicates(int[] arr, int n)
         {

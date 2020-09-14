@@ -530,18 +530,6 @@ namespace Interview
             BinaryTree t = new BinaryTree();
             t.LevelOrder(btree);
 
-            //Set the root 
-            Node root = new Node { data = preorder[0] };
-            
-
-            int cnt = 0;
-            while (cnt < n)
-            {
-                int index = hm[root.data];
-            }
-
-            //BinaryTree tr = new BinaryTree();
-            //var root = tr.Insert(null, preorder[0]);
         }
 
         Node build(int[] preorder, int[] inorder, int start, int end)
