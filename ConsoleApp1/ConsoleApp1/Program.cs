@@ -114,8 +114,9 @@ namespace ConsoleApp1
             int[] wt = new int[] { 10, 30, 20 };
             int Cap = 50;
             int n = val.Length;
+            int[,] dp = new int[n+1, Cap+1];
             KnapSack k = new KnapSack();
-            Console.WriteLine(k.KnapSack_Binary(Cap, wt, val, n));
+            Console.WriteLine(k.KnapSack_Binary(Cap, wt, val, n, dp));
             k.KnapSack_Fraction(Cap, wt, val, n);
 
             Console.WriteLine("Pattern");
@@ -149,7 +150,7 @@ namespace ConsoleApp1
             lst.FindMiddleElement(lst);
 
             Problem_30 p30 = new Problem_30();
-            /*p30.FindSingeNumber();
+            p30.FindSingeNumber();
             p30.HappyNumber();
             p30.Longest_Sum_Subarray();
             p30.FindSubarraySum();
@@ -175,7 +176,7 @@ namespace ConsoleApp1
             p30.ValidSequence(bt.RootNode);
             p30.MinFromSatck();
             p30.MinimumPathSum();
-            p30.HistogramMaxRectangle();*/
+            p30.HistogramMaxRectangle();
             //p30.Print_Combination_R_Elements_Array();
 
             ///All Array Problem

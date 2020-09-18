@@ -77,8 +77,9 @@ namespace Interview
         //Means - 
         public void Longest_Sum_Subarray()
         {
-            int[] arr = { -2, -3, 4, -1, -2, 1, 5, -3 };
+            //int[] arr = { -2, -3, 4, -1, -2, 1, 5, -3 };
             //int[] arr = { 1, 2, 3, -2, 5 };
+            int[] arr = { 1, -3, 2, 1, - 1};
             int max_end_here = 0;
             int max_so_far = int.MinValue;
 
@@ -102,9 +103,9 @@ namespace Interview
         public void FindSubarraySum()
         {
             // int[] arr = { 10, 2, -2, -20, 10 };
-            //int[] arr = { 3, 4, 7, 2, -3, 1, 4, 2 };
-            int[] arr = { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 };
-            int sum = 0;
+            int[] arr = { 1, 3, 4, 2, 5 ,7};
+            //int[] arr = { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 };
+            int sum = 6;
             int n = arr.Length;
 
             // HashMap to store number of subarrays 
@@ -112,8 +113,34 @@ namespace Interview
             // particular value of sum. 
             Dictionary<int, int> prevSum = new Dictionary<int, int>();
             int count = 0;
+
+            int currSUM = 0;
+            int i = 0;
+
+            while (i < n)
+            {
+                currSUM += arr[i];
+
+                if (currSUM == sum)    //We found a new subArray with SUM = k
+                    count += 1;
+
+                if (prevSum.ContainsKey(currSUM - sum))
+                    count += prevSum[currSUM - sum];
+
+                if (!prevSum.ContainsKey(currSUM))
+                {
+                    prevSum.Add(currSUM, 1);
+                }
+                else
+                {
+                    int cnt = prevSum[currSUM];
+                    prevSum[currSUM] = cnt + 1;
+                }
+                i += 1;
+            }
+
             //Sum so far
-            int curSum = 0;
+            /*int curSum = 0;
             for (int i = 0; i < n; i++)
             {
                 curSum += arr[i];
@@ -135,7 +162,7 @@ namespace Interview
                     int cnt = prevSum[curSum];
                     prevSum[curSum] = cnt + 1;
                 }
-            }
+            }*/
 
             Console.WriteLine("Number of subarrays having sum exactly equal to {0} is {1}", sum, count);
 
@@ -320,7 +347,7 @@ namespace Interview
         //3.Hashmap
         public void CountingElement()
         {
-            int[] arr = { 1, 1, 1, 1, 1, 2 };
+            int[] arr = { 1, 1, 1, 1, 1, 2,3,10 };
             Array.Sort(arr);
             int right = 1;
             int left = 0;
@@ -456,7 +483,8 @@ namespace Interview
         //Use dictionary -> key = sum , value = index
         public void SubArrayWithEqualZeroAndOne()
         {
-            int[] arr = { 1, 1, 0, 0, 1, 1, 0, 1, 1 };
+            //int[] arr = { 1, 1, 0, 0, 1, 1, 0, 1, 1 };
+            int[] arr = { 1, 1, 0, 1, 0, 1, 1 };
             int count = 0, sum = 0;
             Dictionary<int, int> h = new Dictionary<int, int>();
             for (int i = 0; i < arr.Length; i++)
@@ -559,7 +587,8 @@ namespace Interview
             //2. left and right array Approach
             //Left array will store cumulative multiply + sum from left to right
             //Right array will store cumulative multiply + sum from right to left
-            int[] arr1 = { 1, 2, 3, 4 };
+            //int[] arr1 = { 1, 2, 3, 4 };
+            int[] arr1 = { 2, 4, 6 };
             int[] left = new int[arr1.Length];
             int[] right = new int[arr1.Length];
             int[] op = new int[arr1.Length];
@@ -1160,7 +1189,7 @@ namespace Interview
             if (index == r)
             {
                 for (int j = 0; j < r; j++)
-                    Console.Write("data[j]");
+                    Console.Write(data[j]);
                 Console.WriteLine();
                 return;
             }

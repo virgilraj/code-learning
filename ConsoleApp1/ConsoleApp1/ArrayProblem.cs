@@ -1166,7 +1166,7 @@ namespace Interview
             }
 
 
-            //Disctionary approach
+            //Dictionary approach
             int[] ar1 = { -3, 5, 2, -1, -4, 10 };
             sum = -4;
 
@@ -1505,8 +1505,8 @@ namespace Interview
         public void Find_kth_Smallest_Element()
         {
             int[] arr = { 10,3, 4, 7, 2, 3, 5 };
-            int k = 5;
-            QuickSort.QuickSelect_Recursive(arr,0,arr.Length-1, k);
+            int k = 6;
+            QuickSort.QuickSelect_Recursive(arr,0,arr.Length-1, k-1);
             
         }
         private void Swap(int[] arr, int li, int ri)

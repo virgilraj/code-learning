@@ -6,22 +6,28 @@ namespace Interview
 {
     class KnapSack
     {
-        public int KnapSack_Binary(int Cap, int[] wt, int[] val, int n)
+        public int KnapSack_Binary(int Cap, int[] wt, int[] val, int n, int[,] dp)
         {
+            if (dp[n, Cap] != 0) return dp[n, Cap];
             //Base Case
             if (n == 0 || Cap == 0) return 0;
 
             if(wt[n-1] > Cap)
             {
-                return KnapSack_Binary(Cap, wt, val, n - 1);
+                return KnapSack_Binary(Cap, wt, val, n - 1, dp);
             }
             else
             {
                 // Return the maximum of two cases: 
                 // (1) nth item included 
                 // (2) not included
-                return max(val[n-1] + KnapSack_Binary(Cap - wt[n-1], wt, val, n-1),
-                    KnapSack_Binary(Cap, wt, val, n - 1));
+                int temp1 = val[n - 1] + KnapSack_Binary(Cap - wt[n - 1], wt, val, n - 1, dp);
+                int temp2 = KnapSack_Binary(Cap, wt, val, n - 1, dp);
+                int result = Math.Max(temp1, temp2);
+                dp[n, Cap] = result;
+                //return max(val[n-1] + KnapSack_Binary(Cap - wt[n-1], wt, val, n-1, dp),
+                //    KnapSack_Binary(Cap, wt, val, n - 1,dp));
+                return result;
             }
         }
 

@@ -44,6 +44,40 @@ namespace Interview
             }
             return root;
         }
+
+        public Node delete(Node root, int data)
+        {
+            if (root == null) return root;
+            else if (data < root.data) root.Left = delete(root.Left, data);
+            else if (data > root.data) root.Right = delete(root.Right, data);
+            else{
+                //No chile
+                if(root.Left == null || root.Right == null)
+                {
+                    root = null;
+                }//One child
+                else if(root.Left ==null && root.Right != null)
+                {
+                    Node temp = root;
+                    root = root.Right;
+                    temp = null;
+                }
+                else if (root.Left != null && root.Right == null)
+                {
+                    Node temp = root;
+                    root = root.Left;
+                    temp = null;
+                }
+                else //2 children
+                {
+                    int minval = GetMinValue(root.Right);
+                    root.data = minval;
+                    root.Right = delete(root.Right, minval);
+                }
+            }
+
+            return root;
+        }
         public bool Add(int value)
         {
             Node current = this.RootNode;
@@ -141,6 +175,16 @@ namespace Interview
                 minval = node.data;
             }
             return minval;
+        }
+
+        public Node GetMinNode(Node node)
+        {
+            Node minval = node;
+            while (node.Left != null)
+            {
+                node = node.Left;
+            }
+            return node;
         }
 
         public int GetMaxValue(Node node)
